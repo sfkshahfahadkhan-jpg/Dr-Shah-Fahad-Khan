@@ -23,8 +23,13 @@ import {
   Target,
   Activity,
   UserCheck,
-  Clock
+  Clock,
+  Beaker,
+  Microscope,
+  Brain,
+  Dna
 } from 'lucide-react';
+
 import { 
   onAuthStateChanged, 
   signOut, 
@@ -100,8 +105,116 @@ export const CURRICULUM = {
         ] as Chapter[]
       }
     }
+  },
+  chemistry: {
+    id: 'chemistry',
+    name: 'Chemistry',
+    icon: Beaker,
+    grades: {
+      '11': {
+        name: 'Grade 11 (FSc Part 1)',
+        chapters: [
+          { id: 'ch-basic-concepts', name: 'Basic Concepts', subtitle: 'Chapter 1: Stoichiometry and Moles', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'ch-experimental-tech', name: 'Experimental Techniques', subtitle: 'Chapter 2: Purification and Analysis', icon: Search, questions: [], timePerQuestion: 60 },
+          { id: 'ch-gases', name: 'Gases', subtitle: 'Chapter 3: Kinetic Molecular Theory', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'ch-liquids-solids', name: 'Liquids and Solids', subtitle: 'Chapter 4: Intermolecular Forces', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'ch-atomic-structure', name: 'Atomic Structure', subtitle: 'Chapter 5: Quantum Numbers and Orbitals', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'ch-chemical-bonding', name: 'Chemical Bonding', subtitle: 'Chapter 6: Molecular Geometry', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-thermochemistry', name: 'Thermochemistry', subtitle: 'Chapter 7: Enthalpy and Calorimetry', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'ch-chemical-equilibrium', name: 'Chemical Equilibrium', subtitle: 'Chapter 8: Le Chatelier Principle', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'ch-solutions', name: 'Solutions', subtitle: 'Chapter 9: Concentration and Colligative Properties', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'ch-electrochemistry', name: 'Electrochemistry', subtitle: 'Chapter 10: Cells and Potentials', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-kinetics', name: 'Reaction Kinetics', subtitle: 'Chapter 11: Rate Laws and Catalysis', icon: Clock, questions: [], timePerQuestion: 60 },
+        ] as Chapter[]
+      },
+      '12': {
+        name: 'Grade 12 (FSc Part 2)',
+        chapters: [
+          { id: 'ch-periodic-class', name: 'Periodic Classification', subtitle: 'Chapter 1: Periods and Groups', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'ch-s-block', name: 's-Block Elements', subtitle: 'Chapter 2: Alkali and Alkaline Earth Metals', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-group-3a-4a', name: 'Group III-A and IV-A', subtitle: 'Chapter 3: Boron and Carbon Families', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'ch-group-5a-6a', name: 'Group V-A and VI-A', subtitle: 'Chapter 4: Nitrogen and Oxygen Families', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'ch-halogens-noble', name: 'Halogens & Noble Gases', subtitle: 'Chapter 5: Group VII-A and VIII', icon: Search, questions: [], timePerQuestion: 60 },
+          { id: 'ch-transition-elements', name: 'Transition Elements', subtitle: 'Chapter 6: d-Block and f-Block', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-organic-principles', name: 'Organic Principles', subtitle: 'Chapter 7: Fundamentals of Organic Chemistry', icon: Brain, questions: [], timePerQuestion: 60 },
+          { id: 'ch-aliphatic-hydrocarbons', name: 'Aliphatic Hydrocarbons', subtitle: 'Chapter 8: Alkanes, Alkenes, Alkynes', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'ch-aromatic-hydrocarbons', name: 'Aromatic Hydrocarbons', subtitle: 'Chapter 9: Benzene and its derivatives', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'ch-alkyl-halides', name: 'Alkyl Halides', subtitle: 'Chapter 10: SN1 and SN2 Mechanisms', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'ch-alcohols-phenols', name: 'Alcohols, Phenols, Ethers', subtitle: 'Chapter 11: Functional Groups', icon: Beaker, questions: [], timePerQuestion: 60 },
+          { id: 'ch-aldehydes-ketones', name: 'Aldehydes and Ketones', subtitle: 'Chapter 12: Carbonyl Compounds', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'ch-carboxylic-acids', name: 'Carboxylic Acids', subtitle: 'Chapter 13: Acid derivatives', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'ch-macromolecules', name: 'Macromolecules', subtitle: 'Chapter 14: Polymers and Proteins', icon: Dna, questions: [], timePerQuestion: 60 },
+          { id: 'ch-industries', name: 'Chemical Industries', subtitle: 'Chapter 15: Industrial Processes in Pakistan', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-environmental', name: 'Environmental Chemistry', subtitle: 'Chapter 16: Air and Water Pollution', icon: Microscope, questions: [], timePerQuestion: 60 },
+        ] as Chapter[]
+      }
+    }
+  },
+  biology: {
+    id: 'biology',
+    name: 'Biology',
+    icon: Microscope,
+    grades: {
+      '11': {
+        name: 'Grade 11 (FSc Part 1)',
+        chapters: [
+          { id: 'bio-intro', name: 'Introduction', subtitle: 'Chapter 1: Levels of Organization', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'bio-molecules', name: 'Biological Molecules', subtitle: 'Chapter 2: Carbohydrates, Lipids, Proteins', icon: Dna, questions: [], timePerQuestion: 60 },
+          { id: 'bio-enzymes', name: 'Enzymes', subtitle: 'Chapter 3: Kinetics and Inhibition', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-cell', name: 'The Cell', subtitle: 'Chapter 4: Organelles and Functions', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-variety-life', name: 'Variety of Life', subtitle: 'Chapter 5: Virus and Classification', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'bio-prokaryotes', name: 'Kingdom Prokaryotae', subtitle: 'Chapter 6: Bacteria and Cyanobacteria', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-protists', name: 'Kingdom Protista', subtitle: 'Chapter 7: Protozoa and Algae', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-fungi', name: 'Kingdom Fungi', subtitle: 'Chapter 8: Lifecycle and Classification', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'bio-plantae', name: 'Kingdom Plantae', subtitle: 'Chapter 9: Bryophytes to Angiosperms', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'bio-animalia', name: 'Kingdom Animalia', subtitle: 'Chapter 10: Invertebrates and Chordates', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-bioenergetics', name: 'Bioenergetics', subtitle: 'Chapter 11: Photosynthesis and Respiration', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'bio-nutrition', name: 'Nutrition', subtitle: 'Chapter 12: Digestion and Nutrient cycles', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'bio-exchange', name: 'Gaseous Exchange', subtitle: 'Chapter 13: Respiratory Systems', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-transport', name: 'Transport', subtitle: 'Chapter 14: Circulation and Immunity', icon: Zap, questions: [], timePerQuestion: 60 },
+        ] as Chapter[]
+      },
+      '12': {
+        name: 'Grade 12 (FSc Part 2)',
+        chapters: [
+          { id: 'bio-homeostasis', name: 'Homeostasis', subtitle: 'Chapter 15: Osmoregulation and Excretion', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'bio-support', name: 'Support and Movement', subtitle: 'Chapter 16: Skeleton and Muscles', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-coordination', name: 'Coordination and Control', subtitle: 'Chapter 17: Nervous and Chemical System', icon: Brain, questions: [], timePerQuestion: 60 },
+          { id: 'bio-reproduction', name: 'Reproduction', subtitle: 'Chapter 18: Plant and Animal reproduction', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-growth', name: 'Growth and Development', subtitle: 'Chapter 19: Embryology and Aging', icon: Clock, questions: [], timePerQuestion: 60 },
+          { id: 'bio-dna', name: 'Chromosomes and DNA', subtitle: 'Chapter 20: Hereditary Material', icon: Dna, questions: [], timePerQuestion: 60 },
+          { id: 'bio-cell-cycle', name: 'Cell Cycle', subtitle: 'Chapter 21: Mitosis and Meiosis', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-genetics', name: 'Variation and Genetics', subtitle: 'Chapter 22: Inheritance Patterns', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'bio-biotech', name: 'Biotechnology', subtitle: 'Chapter 23: Genetic Engineering', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'bio-evolution', name: 'Evolution', subtitle: 'Chapter 24: Darwinism and Speciation', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'bio-ecosystem', name: 'Ecosystem', subtitle: 'Chapter 25: Components and Flow', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'bio-major-eco', name: 'Major Ecosystems', subtitle: 'Chapter 26: Biomes and Habitats', icon: Search, questions: [], timePerQuestion: 60 },
+          { id: 'bio-environment', name: 'Man and Environment', subtitle: 'Chapter 27: Pollution and Conservation', icon: Microscope, questions: [], timePerQuestion: 60 },
+        ] as Chapter[]
+      }
+    }
+  },
+  reasoning: {
+    id: 'reasoning',
+    name: 'Logical Reasoning',
+    icon: Brain,
+    grades: {
+      '1': {
+        name: 'Reasoning Modules',
+        chapters: [
+          { id: 'lr-critical', name: 'Critical Thinking', subtitle: 'Logical Analysis and Arguments', icon: Brain, questions: [], timePerQuestion: 60 },
+          { id: 'lr-series', name: 'Letter & Number Series', subtitle: 'Pattern Recognition', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'lr-symbol', name: 'Symbol Series', subtitle: 'Visual Reasoning', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'lr-deductions', name: 'Logical Deductions', subtitle: 'Syllogisms and Venn Diagrams', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'lr-problems', name: 'Logical Problems', subtitle: 'Situation-based Reasoning', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'lr-action', name: 'Course of Action', subtitle: 'Decision Making', icon: UserCheck, questions: [], timePerQuestion: 60 },
+          { id: 'lr-cause-effect', name: 'Cause & Effect', subtitle: 'Analytical Relationships', icon: Zap, questions: [], timePerQuestion: 60 },
+        ] as Chapter[]
+      }
+    }
   }
 };
+
 
 enum OperationType {
   CREATE = 'create',
