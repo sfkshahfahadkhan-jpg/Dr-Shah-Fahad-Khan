@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "student": {
+      "title": "Student",
+      "description": "A student registered to take quizzes",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "registeredAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "registeredAt"]
+    },
+    "submission": {
+      "title": "Quiz Submission",
+      "description": "A student's score for a specific quiz module",
+      "type": "object",
+      "properties": {
+        "studentEmail": { "type": "string", "format": "email" },
+        "studentName": { "type": "string" },
+        "score": { "type": "number" },
+        "total": { "type": "number" },
+        "sectionName": { "type": "string" },
+        "submittedAt": { "type": "number" }
+      },
+      "required": ["studentEmail", "studentName", "score", "total", "sectionName", "submittedAt"]
+    },
+    "live_progress": {
+      "title": "Live Student Progress",
+      "description": "Real-time tracking of a student's current quiz effort",
+      "type": "object",
+      "properties": {
+        "studentEmail": { "type": "string", "format": "email" },
+        "studentName": { "type": "string" },
+        "sectionName": { "type": "string" },
+        "currentQuestionIndex": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "score": { "type": "number" },
+        "lastUpdated": { "type": "number" },
+        "isFinished": { "type": "boolean" }
+      },
+      "required": ["studentEmail", "studentName", "sectionName", "currentQuestionIndex", "totalQuestions", "score", "lastUpdated", "isFinished"]
+    }
+  },
+  "firestore": {
+    "/students/{email}": {
+      "schema": "student",
+      "description": "Collection of registered students indexed by email"
+    },
+    "/submissions/{submissionId}": {
+      "schema": "submission",
+      "description": "Collection of all quiz attempts"
+    },
+    "/live_progress/{email}": {
+      "schema": "live_progress",
+      "description": "Real-time records of students currently attempting tests"
+    }
+  }
+}

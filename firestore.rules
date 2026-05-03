@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (request.auth.token.email == 'sfkshahfahadkhan@gmail.com' && request.auth.token.email_verified == true);
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-\\.]+$');
+    }
+
+    // Student Registry
+    match /students/{email} {
+      allow get: if isAdmin() || (isSignedIn() && request.auth.token.email == email);
+      allow create: if isSignedIn() && request.auth.token.email == email && 
+                    request.resource.data.keys().hasAll(['name', 'email', 'registeredAt']) &&
+                    request.resource.data.keys().size() == 3;
+      allow list: if isAdmin();
+    }
+
+    // Quiz Submissions
+    match /submissions/{submissionId} {
+      allow create: if isSignedIn() &&
+                    request.resource.data.keys().hasAll(['studentEmail', 'studentName', 'score', 'total', 'sectionName', 'submittedAt']) &&
+                    request.resource.data.studentEmail == request.auth.token.email;
+      allow get: if isAdmin() || (isSignedIn() && resource.data.studentEmail == request.auth.token.email);
+      allow list: if isAdmin() || (isSignedIn() && (resource == null || resource.data.studentEmail == request.auth.token.email));
+    }
+
+    // Live Progress
+    match /live_progress/{email} {
+      allow read: if isAdmin();
+      allow write: if isSignedIn() && request.auth.token.email == email;
+    }
+  }
+}
