@@ -50,23 +50,9 @@ import {
 } from 'firebase/firestore';
 import { auth, db, signInWithGoogle } from './lib/firebase';
 import { Question, QuizState, UserProgress, QuizSubmission } from './types';
-import { ELECTRONICS_QUIZ } from './data/electronicsQuestions';
-import { MODERN_PHYSICS_QUIZ } from './data/modernPhysicsQuestions';
-import { ATOMIC_SPECTRA_QUIZ } from './data/atomicSpectraQuestions';
-import { NUCLEAR_PHYSICS_QUIZ } from './data/nuclearPhysicsQuestions';
-import { WAVES_QUIZ } from './data/wavesQuestions';
-import { BIOLOGY_INTRO_QUIZ } from './data/biologyIntroQuestions';
-import { BIOLOGY_MOLECULES_QUIZ } from './data/biologyMoleculesQuestions';
-import { BIOLOGY_ENZYMES_QUIZ } from './data/biologyEnzymesQuestions';
-import { BIOLOGY_CELL_QUIZ } from './data/biologyCellQuestions';
-import { BIOLOGY_VARIETY_LIFE_QUIZ } from './data/biologyVarietyLifeQuestions';
-import { BIOLOGY_PROKARYOTES_QUIZ } from './data/biologyProkaryotesQuestions';
-import { CHEMISTRY_BASIC_CONCEPTS_QUIZ } from './data/chemistryBasicConceptsQuestions';
-import { CHEMISTRY_EXPERIMENTAL_TECH_QUIZ } from './data/chemistryExperimentalTechQuestions';
-import { CHEMISTRY_GASES_QUIZ } from './data/chemistryGasesQuestions';
-import { CHEMISTRY_LIQUIDS_SOLIDS_QUIZ } from './data/chemistryLiquidsSolidsQuestions';
-import { CHEMISTRY_ATOMIC_STRUCTURE_QUIZ } from './data/chemistryAtomicStructureQuestions';
-import { CHEMISTRY_BONDING_QUIZ } from './data/chemistryBondingQuestions';
+import { quizRegistry } from './quizRegistry';
+
+import { Balance } from 'lucide-react';
 
 
 
@@ -76,9 +62,10 @@ export type Chapter = {
   name: string;
   subtitle: string;
   icon: any;
-  questions: any[];
+  questions: Question[]; // This will stay Question[] but CURRICULUM will use empty arrays initially
   timePerQuestion: number;
 };
+
 
 export const CURRICULUM = {
   physics: {
@@ -89,33 +76,36 @@ export const CURRICULUM = {
       '11': {
         name: 'Grade 11 (FSc Part 1)',
         chapters: [
-          { id: 'measurements', name: 'Measurements', subtitle: 'Chapter 1: Physical Quantities and Units', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'vectors', name: 'Vectors and Equilibrium', subtitle: 'Chapter 2: Vectors and Equilibrium', icon: Target, questions: [], timePerQuestion: 60 },
-          { id: 'motion', name: 'Motion and Force', subtitle: 'Chapter 3: Motion and Force', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'phy-measurements', name: 'Measurements', subtitle: 'Chapter 1: Units and Errors', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'phy-vectors', name: 'Vectors and Equilibrium', subtitle: 'Chapter 2: Vector Algebra', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'force-motion', name: 'Force and Motion', subtitle: 'Chapter 3: Dynamics', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'work', name: 'Work and Energy', subtitle: 'Chapter 4: Work and Energy', icon: Zap, questions: [], timePerQuestion: 60 },
-          { id: 'circular-motion', name: 'Circular Motion', subtitle: 'Chapter 5: Circular Motion', icon: RotateCcw, questions: [], timePerQuestion: 60 },
+          { id: 'p-circular', name: 'Rotational & Circular Motion', subtitle: 'Chapter 5: Angular Motion & Satellites', icon: RotateCcw, questions: [], timePerQuestion: 60 },
           { id: 'fluid-dynamics', name: 'Fluid Dynamics', subtitle: 'Chapter 6: Fluid Dynamics', icon: FileText, questions: [], timePerQuestion: 60 },
           { id: 'oscillations', name: 'Oscillations', subtitle: 'Chapter 7: Oscillations', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'waves', name: 'Waves', subtitle: 'Chapter 8: Waves', icon: Zap, questions: WAVES_QUIZ, timePerQuestion: 60 },
-
+          { id: 'waves', name: 'Waves', subtitle: 'Chapter 8: Waves', icon: Zap, questions: [], timePerQuestion: 60 },
           { id: 'physical-optics', name: 'Physical Optics', subtitle: 'Chapter 9: Physical Optics', icon: Star, questions: [], timePerQuestion: 60 },
           { id: 'optical-instruments', name: 'Optical Instruments', subtitle: 'Chapter 10: Optical Instruments', icon: Search, questions: [], timePerQuestion: 60 },
           { id: 'thermodynamics', name: 'Heat and Thermodynamics', subtitle: 'Chapter 11: Heat and Thermodynamics', icon: Activity, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       },
       '12': {
         name: 'Grade 12 (FSc Part 2)',
         chapters: [
-          { id: 'electrostatics', name: 'Electrostatics', subtitle: 'Chapter 12: Electrostatics', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'p-electrostatics', name: 'Electrostatics', subtitle: 'Chapter 12: Electrostatics', icon: Zap, questions: [], timePerQuestion: 60 },
           { id: 'current-electricity', name: 'Current Electricity', subtitle: 'Chapter 13: Current Electricity', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'electromagnetism', name: 'Electromagnetism', subtitle: 'Chapter 14: Electromagnetism', icon: Zap, questions: [], timePerQuestion: 60 },
           { id: 'electromagnetic-induction', name: 'Electromagnetic Induction', subtitle: 'Chapter 15: Electromagnetic Induction', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'alternating-current', name: 'Alternating Current', subtitle: 'Chapter 16: Alternating Current', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'physics-of-solids', name: 'Physics of Solids', subtitle: 'Chapter 17: Physics of Solids', icon: Target, questions: [], timePerQuestion: 60 },
-          { id: 'electronics', name: 'Electronics', subtitle: 'Chapter 18: Semiconductors and Systems', icon: Cpu, questions: ELECTRONICS_QUIZ, timePerQuestion: 60 },
-          { id: 'modern-physics', name: 'Dawn of Modern Physics', subtitle: 'Chapter 19: Relativistic and Quantum Phenomena', icon: Star, questions: MODERN_PHYSICS_QUIZ, timePerQuestion: 60 },
-          { id: 'atomic-spectra', name: 'Atomic Spectra', subtitle: 'Chapter 20: Hydrogen Spectrum and Lasers', icon: Zap, questions: ATOMIC_SPECTRA_QUIZ, timePerQuestion: 60 },
-          { id: 'nuclear-physics', name: 'Nuclear Physics', subtitle: 'Chapter 21: Radioactivity and Nuclear Energy', icon: Target, questions: NUCLEAR_PHYSICS_QUIZ, timePerQuestion: 60 },
+          { id: 'electronics', name: 'Electronics', subtitle: 'Chapter 18: Semiconductors and Systems', icon: Cpu, questions: [], timePerQuestion: 60 },
+          { id: 'modern-physics', name: 'Dawn of Modern Physics', subtitle: 'Chapter 19: Relativistic and Quantum Phenomena', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'atomic-spectra', name: 'Atomic Spectra', subtitle: 'Chapter 20: Hydrogen Spectrum and Lasers', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'nuclear-physics', name: 'Nuclear Physics', subtitle: 'Chapter 21: Radioactivity and Nuclear Energy', icon: Target, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       }
     }
@@ -128,30 +118,28 @@ export const CURRICULUM = {
       '11': {
         name: 'Grade 11 (FSc Part 1)',
         chapters: [
-          { id: 'ch-basic-concepts', name: 'Basic Concepts', subtitle: 'Chapter 1: Stoichiometry and Moles', icon: FileText, questions: CHEMISTRY_BASIC_CONCEPTS_QUIZ, timePerQuestion: 60 },
-
-          { id: 'ch-experimental-tech', name: 'Experimental Techniques', subtitle: 'Chapter 2: Purification and Analysis', icon: Search, questions: CHEMISTRY_EXPERIMENTAL_TECH_QUIZ, timePerQuestion: 60 },
-
-          { id: 'ch-gases', name: 'Gases', subtitle: 'Chapter 3: Kinetic Molecular Theory', icon: Activity, questions: CHEMISTRY_GASES_QUIZ, timePerQuestion: 60 },
-
-          { id: 'ch-liquids-solids', name: 'Liquids and Solids', subtitle: 'Chapter 4: Intermolecular Forces', icon: Target, questions: CHEMISTRY_LIQUIDS_SOLIDS_QUIZ, timePerQuestion: 60 },
-
-          { id: 'ch-atomic-structure', name: 'Atomic Structure', subtitle: 'Chapter 5: Quantum Numbers and Orbitals', icon: Star, questions: CHEMISTRY_ATOMIC_STRUCTURE_QUIZ, timePerQuestion: 60 },
-
-          { id: 'ch-chemical-bonding', name: 'Chemical Bonding', subtitle: 'Chapter 6: Molecular Geometry', icon: Zap, questions: CHEMISTRY_BONDING_QUIZ, timePerQuestion: 60 },
-
-          { id: 'ch-thermochemistry', name: 'Thermochemistry', subtitle: 'Chapter 7: Enthalpy and Calorimetry', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'ch-chemical-equilibrium', name: 'Chemical Equilibrium', subtitle: 'Chapter 8: Le Chatelier Principle', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'ch-basic-concepts', name: 'Basic Concepts', subtitle: 'Chapter 1: Stoichiometry and Moles', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'ch-experimental-tech', name: 'Experimental Techniques', subtitle: 'Chapter 2: Purification and Analysis', icon: Search, questions: [], timePerQuestion: 60 },
+          { id: 'ch-gases', name: 'Gases', subtitle: 'Chapter 3: Kinetic Molecular Theory', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'ch-liquids-solids', name: 'Liquids and Solids', subtitle: 'Chapter 4: Intermolecular Forces', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'ch-atomic-structure', name: 'Atomic Structure', subtitle: 'Chapter 5: Quantum Numbers and Orbitals', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'ch-chemical-bonding', name: 'Chemical Bonding', subtitle: 'Chapter 6: Molecular Geometry', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-thermochemistry', name: 'Thermochemistry', subtitle: 'Chapter 7: Thermochemistry', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'chem-equilibrium', name: 'Chemical Equilibrium', subtitle: 'Chapter 8: Equilibrium', icon: Balance, questions: [], timePerQuestion: 60 },
           { id: 'ch-solutions', name: 'Solutions', subtitle: 'Chapter 9: Concentration and Colligative Properties', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'ch-electrochemistry', name: 'Electrochemistry', subtitle: 'Chapter 10: Cells and Potentials', icon: Zap, questions: [], timePerQuestion: 60 },
-          { id: 'ch-kinetics', name: 'Reaction Kinetics', subtitle: 'Chapter 11: Rate Laws and Catalysis', icon: Clock, questions: [], timePerQuestion: 60 },
+          { id: 'ch-electrochemistry', name: 'Electrochemistry', subtitle: 'Chapter 10: Electrochemistry', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-kinetics', name: 'Reaction Kinetics', subtitle: 'Chapter 11: Kinetics', icon: Clock, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       },
       '12': {
         name: 'Grade 12 (FSc Part 2)',
         chapters: [
-          { id: 'ch-periodic-class', name: 'Periodic Classification', subtitle: 'Chapter 1: Periods and Groups', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'ch-periodic-class', name: 'Periodic Classification', subtitle: 'Chapter 1: Periodicity', icon: FileText, questions: [], timePerQuestion: 60 },
           { id: 'ch-s-block', name: 's-Block Elements', subtitle: 'Chapter 2: Alkali and Alkaline Earth Metals', icon: Zap, questions: [], timePerQuestion: 60 },
+
+
           { id: 'ch-group-3a-4a', name: 'Group III-A and IV-A', subtitle: 'Chapter 3: Boron and Carbon Families', icon: Star, questions: [], timePerQuestion: 60 },
           { id: 'ch-group-5a-6a', name: 'Group V-A and VI-A', subtitle: 'Chapter 4: Nitrogen and Oxygen Families', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'ch-halogens-noble', name: 'Halogens & Noble Gases', subtitle: 'Chapter 5: Group VII-A and VIII', icon: Search, questions: [], timePerQuestion: 60 },
@@ -166,6 +154,8 @@ export const CURRICULUM = {
           { id: 'ch-macromolecules', name: 'Macromolecules', subtitle: 'Chapter 14: Polymers and Proteins', icon: Dna, questions: [], timePerQuestion: 60 },
           { id: 'ch-industries', name: 'Chemical Industries', subtitle: 'Chapter 15: Industrial Processes in Pakistan', icon: Zap, questions: [], timePerQuestion: 60 },
           { id: 'ch-environmental', name: 'Environmental Chemistry', subtitle: 'Chapter 16: Air and Water Pollution', icon: Microscope, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       }
     }
@@ -178,44 +168,42 @@ export const CURRICULUM = {
       '11': {
         name: 'Grade 11 (FSc Part 1)',
         chapters: [
-          { id: 'bio-intro', name: 'Introduction', subtitle: 'Chapter 1: Levels of Organization', icon: FileText, questions: BIOLOGY_INTRO_QUIZ, timePerQuestion: 60 },
-
-          { id: 'bio-molecules', name: 'Biological Molecules', subtitle: 'Chapter 2: Carbohydrates, Lipids, Proteins', icon: Dna, questions: BIOLOGY_MOLECULES_QUIZ, timePerQuestion: 60 },
-
-          { id: 'bio-enzymes', name: 'Enzymes', subtitle: 'Chapter 3: Kinetics and Inhibition', icon: Activity, questions: BIOLOGY_ENZYMES_QUIZ, timePerQuestion: 60 },
-
-          { id: 'bio-cell', name: 'The Cell', subtitle: 'Chapter 4: Organelles and Functions', icon: Microscope, questions: BIOLOGY_CELL_QUIZ, timePerQuestion: 60 },
-
-          { id: 'bio-variety-life', name: 'Variety of Life', subtitle: 'Chapter 5: Virus and Classification', icon: Star, questions: BIOLOGY_VARIETY_LIFE_QUIZ, timePerQuestion: 60 },
-
-          { id: 'bio-prokaryotes', name: 'Kingdom Prokaryotae', subtitle: 'Chapter 6: Bacteria and Cyanobacteria', icon: Microscope, questions: BIOLOGY_PROKARYOTES_QUIZ, timePerQuestion: 60 },
-
+          { id: 'bio-intro', name: 'Introduction', subtitle: 'Chapter 1: Levels of Organization', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'bio-molecules', name: 'Biological Molecules', subtitle: 'Chapter 2: Carbohydrates, Lipids, Proteins', icon: Dna, questions: [], timePerQuestion: 60 },
+          { id: 'bio-enzymes', name: 'Enzymes', subtitle: 'Chapter 3: Kinetics and Inhibition', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-cell', name: 'The Cell', subtitle: 'Chapter 4: Organelles and Functions', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-variety-life', name: 'Variety of Life', subtitle: 'Chapter 5: Virus and Classification', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'bio-prokaryotes', name: 'Kingdom Prokaryotae', subtitle: 'Chapter 6: Bacteria and Cyanobacteria', icon: Microscope, questions: [], timePerQuestion: 60 },
           { id: 'bio-protists', name: 'Kingdom Protista', subtitle: 'Chapter 7: Protozoa and Algae', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'bio-fungi', name: 'Kingdom Fungi', subtitle: 'Chapter 8: Lifecycle and Classification', icon: Target, questions: [], timePerQuestion: 60 },
-          { id: 'bio-plantae', name: 'Kingdom Plantae', subtitle: 'Chapter 9: Bryophytes to Angiosperms', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'bio-animalia', name: 'Kingdom Animalia', subtitle: 'Chapter 10: Invertebrates and Chordates', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'bio-bioenergetics', name: 'Bioenergetics', subtitle: 'Chapter 11: Photosynthesis and Respiration', icon: Zap, questions: [], timePerQuestion: 60 },
-          { id: 'bio-nutrition', name: 'Nutrition', subtitle: 'Chapter 12: Digestion and Nutrient cycles', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'bio-exchange', name: 'Gaseous Exchange', subtitle: 'Chapter 13: Respiratory Systems', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'bio-transport', name: 'Transport', subtitle: 'Chapter 14: Circulation and Immunity', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'bio-plantae', name: 'Kingdom Plantae', subtitle: 'Chapter 8: Kingdom Plantae', icon: Leaf, questions: [], timePerQuestion: 60 },
+          { id: 'bio-animalia', name: 'Kingdom Animalia', subtitle: 'Chapter 9: Kingdom Animalia', icon: Dog, questions: [], timePerQuestion: 60 },
+          { id: 'bio-bioenergetics', name: 'Bioenergetics', subtitle: 'Chapter 10: Bioenergetics', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'bio-nutrition', name: 'Nutrition', subtitle: 'Chapter 12: Nutrition', icon: Coffee, questions: [], timePerQuestion: 60 },
+          { id: 'bio-exchange', name: 'Gaseous Exchange', subtitle: 'Chapter 13: Gaseous Exchange', icon: Wind, questions: [], timePerQuestion: 60 },
+          { id: 'bio-transport', name: 'Transport', subtitle: 'Chapter 14: Transport', icon: Heart, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       },
       '12': {
         name: 'Grade 12 (FSc Part 2)',
         chapters: [
-          { id: 'bio-homeostasis', name: 'Homeostasis', subtitle: 'Chapter 15: Osmoregulation and Excretion', icon: Target, questions: [], timePerQuestion: 60 },
-          { id: 'bio-support', name: 'Support and Movement', subtitle: 'Chapter 16: Skeleton and Muscles', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'bio-coordination', name: 'Coordination and Control', subtitle: 'Chapter 17: Nervous and Chemical System', icon: Brain, questions: [], timePerQuestion: 60 },
-          { id: 'bio-reproduction', name: 'Reproduction', subtitle: 'Chapter 18: Plant and Animal reproduction', icon: Microscope, questions: [], timePerQuestion: 60 },
-          { id: 'bio-growth', name: 'Growth and Development', subtitle: 'Chapter 19: Embryology and Aging', icon: Clock, questions: [], timePerQuestion: 60 },
+          { id: 'bio-homeostasis', name: 'Homeostasis', subtitle: 'Chapter 15: Homeostasis', icon: Thermometer, questions: [], timePerQuestion: 60 },
+          { id: 'bio-support', name: 'Support and Movement', subtitle: 'Chapter 16: Support and Movement', icon: Activity, questions: [], timePerQuestion: 60 },
+          { id: 'bio-coordination', name: 'Coordination and Control', subtitle: 'Chapter 17: Coordination and Control', icon: Brain, questions: [], timePerQuestion: 60 },
+          { id: 'bio-reproduction', name: 'Reproduction', subtitle: 'Chapter 18: Reproduction', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-growth', name: 'Growth and Development', subtitle: 'Chapter 19: Growth and Development', icon: Clock, questions: [], timePerQuestion: 60 },
           { id: 'bio-dna', name: 'Chromosomes and DNA', subtitle: 'Chapter 20: Hereditary Material', icon: Dna, questions: [], timePerQuestion: 60 },
           { id: 'bio-cell-cycle', name: 'Cell Cycle', subtitle: 'Chapter 21: Mitosis and Meiosis', icon: Microscope, questions: [], timePerQuestion: 60 },
-          { id: 'bio-genetics', name: 'Variation and Genetics', subtitle: 'Chapter 22: Inheritance Patterns', icon: Star, questions: [], timePerQuestion: 60 },
-          { id: 'bio-biotech', name: 'Biotechnology', subtitle: 'Chapter 23: Genetic Engineering', icon: Zap, questions: [], timePerQuestion: 60 },
-          { id: 'bio-evolution', name: 'Evolution', subtitle: 'Chapter 24: Darwinism and Speciation', icon: Target, questions: [], timePerQuestion: 60 },
-          { id: 'bio-ecosystem', name: 'Ecosystem', subtitle: 'Chapter 25: Components and Flow', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'bio-major-eco', name: 'Major Ecosystems', subtitle: 'Chapter 26: Biomes and Habitats', icon: Search, questions: [], timePerQuestion: 60 },
-          { id: 'bio-environment', name: 'Man and Environment', subtitle: 'Chapter 27: Pollution and Conservation', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-genetics', name: 'Variation and Genetics', subtitle: 'Chapter 22: Variation and Genetics', icon: Star, questions: [], timePerQuestion: 60 },
+          { id: 'bio-biotech', name: 'Biotechnology', subtitle: 'Chapter 23: Biotechnology', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'bio-evolution', name: 'Evolution', subtitle: 'Chapter 24: Evolution', icon: Target, questions: [], timePerQuestion: 60 },
+          { id: 'bio-ecosystem', name: 'Ecosystem', subtitle: 'Chapter 25: Ecosystem', icon: FileText, questions: [], timePerQuestion: 60 },
+          { id: 'bio-major-eco', name: 'Major Ecosystems', subtitle: 'Chapter 26: Major Ecosystems', icon: Search, questions: [], timePerQuestion: 60 },
+          { id: 'bio-environment', name: 'Man and Environment', subtitle: 'Chapter 27: Man and Environment', icon: Microscope, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       }
     }
@@ -235,6 +223,8 @@ export const CURRICULUM = {
           { id: 'lr-problems', name: 'Logical Problems', subtitle: 'Situation-based Reasoning', icon: FileText, questions: [], timePerQuestion: 60 },
           { id: 'lr-action', name: 'Course of Action', subtitle: 'Decision Making', icon: UserCheck, questions: [], timePerQuestion: 60 },
           { id: 'lr-cause-effect', name: 'Cause & Effect', subtitle: 'Analytical Relationships', icon: Zap, questions: [], timePerQuestion: 60 },
+
+
         ] as Chapter[]
       }
     }
@@ -347,8 +337,8 @@ export default function App() {
     return () => clearInterval(timer);
   }, [state, timeLeft]);
 
-  const startQuiz = (section: Chapter) => {
-    if (section.questions.length === 0) {
+  const startQuiz = async (section: Chapter) => {
+    if (!quizRegistry[section.id]) {
       alert("This chapter's questions are coming soon!");
       return;
     }
@@ -360,25 +350,45 @@ export default function App() {
       setState('register');
       return;
     }
-    setActiveSection(section);
-    setQuestions(section.questions);
-    setTimeLeft(section.questions.length * section.timePerQuestion);
-    
-    const initialProgress: UserProgress = {
-      currentQuestionIndex: 0,
-      answers: {},
-      isFinished: false,
-      score: 0,
-      startTime: Date.now(),
-    };
-    setProgress(initialProgress);
-    setState('quiz');
 
-    // Initialize live progress
-    updateLiveProgress(initialProgress, section, false);
+    setLoading(true);
+    try {
+      const module = await quizRegistry[section.id]();
+      // Find the first export that is an array (our quiz questions)
+      const loadedQuestions = Object.values(module).find(val => Array.isArray(val)) as Question[];
+      
+      if (!loadedQuestions || loadedQuestions.length === 0) {
+        alert("Error loading questions.");
+        setLoading(false);
+        return;
+      }
+
+      setActiveSection(section);
+      setQuestions(loadedQuestions);
+      setTimeLeft(loadedQuestions.length * section.timePerQuestion);
+      
+      const initialProgress: UserProgress = {
+        currentQuestionIndex: 0,
+        answers: {},
+        isFinished: false,
+        score: 0,
+        startTime: Date.now(),
+      };
+      setProgress(initialProgress);
+      setState('quiz');
+
+      // Initialize live progress
+      // Pass the loaded questions length explicitly if needed, or update updateLiveProgress
+      updateLiveProgress(initialProgress, section, false, loadedQuestions.length);
+    } catch (error) {
+      console.error("Failed to load quiz:", error);
+      alert("Failed to load quiz content. Please check your connection.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const updateLiveProgress = async (currentProgress: UserProgress, section: Chapter, finished: boolean) => {
+  const updateLiveProgress = async (currentProgress: UserProgress, section: Chapter, finished: boolean, totalOverride?: number) => {
     if (!studentInfo || !currentUser?.email) return;
     
     try {
@@ -387,7 +397,7 @@ export default function App() {
         studentName: studentInfo.name,
         sectionName: section.name,
         currentQuestionIndex: currentProgress.currentQuestionIndex,
-        totalQuestions: section.questions.length,
+        totalQuestions: totalOverride || section.questions.length,
         score: currentProgress.score,
         lastUpdated: Date.now(),
         isFinished: finished
@@ -666,13 +676,10 @@ export default function App() {
                       <h3 className="heading-serif font-black text-xl text-brand-green">{chapter.name}</h3>
                       <p className="text-slate-500 font-bold text-xs mt-1">{chapter.subtitle}</p>
                       <div className="mt-3 flex items-center gap-2">
-                        {chapter.questions.length > 0 ? (
+                        {quizRegistry[chapter.id] ? (
                           <>
                             <span className="flex items-center gap-1 px-2 py-1 bg-brand-gold/10 text-brand-gold rounded font-black text-[10px] uppercase tracking-tighter">
-                              <Timer className="w-3 h-3" /> {chapter.questions.length * chapter.timePerQuestion / 60}m
-                            </span>
-                            <span className="px-2 py-1 bg-slate-100 text-slate-500 rounded font-black text-[10px] uppercase tracking-tighter">
-                              {chapter.questions.length} MCQs
+                              <Timer className="w-3 h-3" /> Exam Prep
                             </span>
                           </>
                         ) : (

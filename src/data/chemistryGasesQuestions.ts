@@ -201,14 +201,328 @@ export const CHEMISTRY_GASES_QUIZ: Question[] = [
     id: 'chem-gas-29',
     text: 'The molar mass of an unknown gas occupying 22.4 dm³ at STP and weighing 44g is:',
     options: ['22', '44', '88', '32'],
-    correctAnswer: '44',
-    explanation: 'At STP, 22.4 dm³ is 1 mole. Weight of 1 mole is molar mass.'
+    explanation: 'Plasma consists of ionized gas.'
   },
   {
-    id: 'chem-gas-30',
-    text: 'A gas that follows gas laws at all temperatures and pressures is:',
-    options: ['Real gas', 'Ideal gas', 'Nobel gas', 'Plasma'],
-    correctAnswer: 'Ideal gas',
-    explanation: 'Ideal (or perfect) gases are theoretical constructs.'
+    id: 'chem-gas-55',
+    text: 'Most of the matter in the universe exists in which state?',
+    options: ['Solid', 'Liquid', 'Gas', 'Plasma'],
+    correctAnswer: 'Plasma',
+    explanation: 'Stars and nebulae are made of plasma.'
+  },
+  {
+    id: 'chem-gas-56',
+    text: 'The pressure of a gas is due to:',
+    options: ['Molecules hitting the walls of the container', 'Gravity', 'Molecular attractions', 'Expansion'],
+    correctAnswer: 'Molecules hitting the walls of the container',
+    explanation: 'Pressure is force per unit area from collisions.'
+  },
+  {
+    id: 'chem-gas-57',
+    text: 'Which gas is used in the "Linde’s method" for liquefaction of air?',
+    options: ['N2', 'O2', 'CO2', 'All of above (Air)'],
+    correctAnswer: 'All of above (Air)',
+    explanation: 'Linde’s method uses Joule-Thomson effect to liquefy air.'
+  },
+  {
+    id: 'chem-gas-58',
+    text: 'The density of a gas is inversely proportional to:',
+    options: ['Pressure', 'Molar mass', 'Absolute Temperature', 'Moles'],
+    correctAnswer: 'Absolute Temperature',
+    explanation: 'd = PM / RT.'
+  },
+  {
+    id: 'chem-gas-59',
+    text: 'One atmosphere (1 atm) is equal to how many torrs?',
+    options: ['76', '760', '101325', '14.7'],
+    correctAnswer: '760',
+    explanation: '1 atm = 760 mmHg = 760 torr.'
+  },
+  {
+    id: 'chem-gas-60',
+    text: 'Which gas deviates most from ideal behavior at STP?',
+    options: ['He', 'H2', 'CH4', 'SO2'],
+    correctAnswer: 'SO2',
+    explanation: 'SO2 is polar and has larger molecules, so it has higher IMFs.'
+  },
+  {
+    id: 'chem-gas-61',
+    text: 'The root mean square velocity (Vrms) of gas molecules is:',
+    options: ['√(3RT/M)', '√(2RT/M)', '√(8RT/πM)', 'RT/M'],
+    correctAnswer: '√(3RT/M)',
+    explanation: 'Standard formula for rms speed.'
+  },
+  {
+    id: 'chem-gas-62',
+    text: 'Avogadro’s Law states that equal volumes of all gases at the same T and P contain equal:',
+    options: ['Mass', 'Density', 'Number of molecules', 'Number of atoms'],
+    correctAnswer: 'Number of molecules',
+    explanation: 'V ∝ n.'
+  },
+  {
+    id: 'chem-gas-63',
+    text: 'What happens to the pressure of a gas if its volume is halved at constant T?',
+    options: ['Halved', 'Doubled', 'Stay same', 'Zero'],
+    correctAnswer: 'Doubled',
+    explanation: 'Boyle’s Law: P and V are inversely proportional.'
+  },
+  {
+    id: 'chem-gas-64',
+    text: 'The units of Van der Waals constant "b" are:',
+    options: ['atm L² mol⁻²', 'L mol⁻¹', 'J mol⁻¹ K⁻¹', 'Dimensionless'],
+    correctAnswer: 'L mol⁻¹',
+    explanation: 'b has the units of molar volume.'
+  },
+  {
+    id: 'chem-gas-65',
+    text: 'The units of Van der Waals constant "a" are:',
+    options: ['atm L² mol⁻²', 'L mol⁻¹', 'atm L mol⁻²', 'None'],
+    correctAnswer: 'atm L² mol⁻²',
+    explanation: 'Derived from the pressure correction term.'
+  },
+  {
+    id: 'chem-gas-66',
+    text: 'Which gas law is used to calculate the molar mass of a volatile liquid?',
+    options: ['Boyle’s Law', 'Ideal Gas Law', 'Graham’s Law', 'Dalton’s Law'],
+    correctAnswer: 'Ideal Gas Law',
+    explanation: 'PV = (m/M)RT => M = mRT/PV (Dumas method).'
+  },
+  {
+    id: 'chem-gas-67',
+    text: 'According to KMT, the actual volume of gas molecules is _____ compared to the total volume of gas.',
+    options: ['Significant', 'Negligible', 'Equal', 'Infinite'],
+    correctAnswer: 'Negligible',
+    explanation: 'This is an assumption for ideal gases.'
+  },
+  {
+    id: 'chem-gas-68',
+    text: 'Pressure of 101.325 kPa is equal to:',
+    options: ['1 atm', '760 torr', '1.01325 bar', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'Standard pressure units.'
+  },
+  {
+    id: 'chem-gas-69',
+    text: 'Which gas is used in artificial respiration for deep-sea divers?',
+    options: ['Pure Oxygen', 'Helium-Oxygen mixture', 'Nitrogen-Oxygen mixture', 'Argon'],
+    correctAnswer: 'Helium-Oxygen mixture',
+    explanation: 'Helium is less soluble in blood than nitrogen, preventing "the bends".'
+  },
+  {
+    id: 'chem-gas-70',
+    text: 'The constant R is called the:',
+    options: ['Universal gas constant', 'Ideal gas constant', 'Both A and B', 'Specific gas constant'],
+    correctAnswer: 'Both A and B',
+    explanation: 'It is a universal constant for all ideal gases.'
+  },
+  {
+    id: 'chem-gas-71',
+    text: 'The absolute temperature of a gas is a measure of its:',
+    options: ['Potential energy', 'Average kinetic energy', 'Total heat', 'Pressure'],
+    correctAnswer: 'Average kinetic energy',
+    explanation: 'T ∝ K.E. avg.'
+  },
+  {
+    id: 'chem-gas-72',
+    text: 'Which property is unique to gases among the states of matter?',
+    options: ['High compressibility', 'Indefinite shape', 'Ability to flow', 'Diffusion'],
+    correctAnswer: 'High compressibility',
+    explanation: 'Gases have large empty spaces between molecules.'
+  },
+  {
+    id: 'chem-gas-73',
+    text: 'Graham’s law of diffusion is used to separate:',
+    options: ['Isotopes of Uranium', 'Oxygen from Nitrogen', 'Noble gases', 'All of above'],
+    correctAnswer: 'Isotopes of Uranium',
+    explanation: '235-UF6 and 238-UF6 are separated by gaseous diffusion.'
+  },
+  {
+    id: 'chem-gas-74',
+    text: 'The pressure of a gas _____ if temperature increases at constant volume.',
+    options: ['Increases', 'Decreases', 'Stay same', 'Becomes zero'],
+    correctAnswer: 'Increases',
+    explanation: 'Gay-Lussac’s Law: P ∝ T.'
+  },
+  {
+    id: 'chem-gas-75',
+    text: 'Real gases behave ideally at:',
+    options: ['High P, Low T', 'Low P, High T', 'Low P, Low T', 'High P, High T'],
+    correctAnswer: 'Low P, High T',
+    explanation: 'Molecules are far apart and moving fast, minimizing IMFs and excluded volume.'
+  },
+  {
+    id: 'chem-gas-76',
+    text: 'The fraction of total pressure exerted by a gas is its mole fraction. This is:',
+    options: ['Boyle’s Law', 'Dalton’s Law', 'Raoult’s Law', 'Henry’s Law'],
+    correctAnswer: 'Dalton’s Law',
+    explanation: 'Pi = Xi * Pt.'
+  },
+  {
+    id: 'chem-gas-77',
+    text: 'The mean free path is the average distance traveled by a molecule between:',
+    options: ['Collisions', 'Walls', 'Orbits', 'Seconds'],
+    correctAnswer: 'Collisions',
+    explanation: 'Molecules travel in straight lines between collisions.'
+  },
+  {
+    id: 'chem-gas-78',
+    text: 'In the equation d = PM/RT, if pressure is doubled and absolute temperature is doubled, density will:',
+    options: ['Double', 'Halve', 'Stay same', 'Quadruple'],
+    correctAnswer: 'Stay same',
+    explanation: 'Changes cancel each other out.'
+  },
+  {
+    id: 'chem-gas-79',
+    text: 'Standard molar volume of a gas at 273.15 K and 1 bar is:',
+    options: ['22.414 L', '22.711 L', '24.4 L', '22.0 L'],
+    correctAnswer: '22.711 L',
+    explanation: 'Modern IUPAC standard uses 1 bar (100 kPa).'
+  },
+  {
+    id: 'chem-gas-80',
+    text: 'The manometric method is used to measure:',
+    options: ['Vapor pressure', 'Atmospheric pressure', 'Gas pressure in a container', 'Both A and C'],
+    correctAnswer: 'Both A and C',
+    explanation: 'Manometers measure pressure differences.'
+  },
+  {
+    id: 'chem-gas-81',
+    text: 'A barometer is used to measure:',
+    options: ['Gas pressure', 'Atmospheric pressure', 'Blood pressure', 'Vapor pressure'],
+    correctAnswer: 'Atmospheric pressure',
+    explanation: 'Invented by Torricelli.'
+  },
+  {
+    id: 'chem-gas-82',
+    text: 'Which is NOT a postulate of KMT?',
+    options: ['Gases consist of large number of molecules', 'Molecules are in random motion', 'There are strong attractions between molecules', 'Collisions are elastic'],
+    correctAnswer: 'There are strong attractions between molecules',
+    explanation: 'KMT assumes zero attractions for ideal gases.'
+  },
+  {
+    id: 'chem-gas-83',
+    text: 'Pressure exerted by a gas is _____ in all directions.',
+    options: ['Different', 'Same', 'Zero', 'Maximum'],
+    correctAnswer: 'Same',
+    explanation: 'Pascal’s principle applies to fluids (gases and liquids).'
+  },
+  {
+    id: 'chem-gas-84',
+    text: 'The ratio of the rate of diffusion of H2 to O2 is:',
+    options: ['1:4', '4:1', '1:16', '16:1'],
+    correctAnswer: '4:1',
+    explanation: '√(32/2) = √16 = 4.'
+  },
+  {
+    id: 'chem-gas-85',
+    text: 'Diffusion is the process of _____ mixing of gases.',
+    options: ['Spontaneous', 'Forced', 'Chemical', 'Slow'],
+    correctAnswer: 'Spontaneous',
+    explanation: 'Gases mix due to random molecular motion.'
+  },
+  {
+    id: 'chem-gas-86',
+    text: 'A gas occupies 100 cm³ at 1 atm. What volume will it occupy at 2 atm at same T?',
+    options: ['200 cm³', '50 cm³', '100 cm³', '25 cm³'],
+    correctAnswer: '50 cm³',
+    explanation: 'P doubled, V halved.'
+  },
+  {
+    id: 'chem-gas-87',
+    text: 'The boiling point of a gas is _____ than its critical temperature.',
+    options: ['Higher', 'Lower', 'Same', 'Negative'],
+    correctAnswer: 'Lower',
+    explanation: 'Boiling occurs at 1 atm; critical point is at much higher P and T.'
+  },
+  {
+    id: 'chem-gas-88',
+    text: 'The gas constant R has dimensions of:',
+    options: ['Energy / mol K', 'Pressure / mol K', 'Volume / mol K', 'Force / mol K'],
+    correctAnswer: 'Energy / mol K',
+    explanation: 'PV has dimensions of Work/Energy.'
+  },
+  {
+    id: 'chem-gas-89',
+    text: 'Which gas is the closest to being "ideal"?',
+    options: ['He', 'H2', 'O2', 'N2'],
+    correctAnswer: 'He',
+    explanation: 'Helium has the smallest molecules and weakest IMFs.'
+  },
+  {
+    id: 'chem-gas-90',
+    text: 'The units of partial pressure are same as:',
+    options: ['Total pressure', 'Torr', 'Pa', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'It is still a pressure measurement.'
+  },
+  {
+    id: 'chem-gas-91',
+    text: 'Molecular motion stops at:',
+    options: ['0°C', '-273.15°C', '0 K', 'Both B and C'],
+    correctAnswer: 'Both B and C',
+    explanation: 'At absolute zero, theoretical kinetic energy is zero.'
+  },
+  {
+    id: 'chem-gas-92',
+    text: 'The molar volume of a gas at STP depends on:',
+    options: ['Nature of gas', 'Molar mass', 'Pressure and Temperature', 'Amount of gas'],
+    correctAnswer: 'Pressure and Temperature',
+    explanation: 'It is same for all ideal gases regardless of nature.'
+  },
+  {
+    id: 'chem-gas-93',
+    text: 'Which is a property of Plasma?',
+    options: ['Conductor of electricity', 'Reacts to magnetic fields', 'Has glow/light', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'Plasma is highly ionized and energetic.'
+  },
+  {
+    id: 'chem-gas-94',
+    text: 'Density of Neon (Z=10) at STP is approximately:',
+    options: ['0.9 g/L', '1.2 g/L', '2.0 g/L', '0.4 g/L'],
+    correctAnswer: '0.9 g/L',
+    explanation: 'M/22.4 = 20/22.4 ≈ 0.89 g/L.'
+  },
+  {
+    id: 'chem-gas-95',
+    text: 'According to KMT, the pressure of a gas is proportional to the _____ of molecules.',
+    options: ['Number', 'Mass', 'Speed squared', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'P = 1/3 (mNc²/V).'
+  },
+  {
+    id: 'chem-gas-96',
+    text: 'Most common place to find plasma naturally on Earth is:',
+    options: ['Atmosphere', 'Lightning', 'Ocean', 'Forests'],
+    correctAnswer: 'Lightning',
+    explanation: 'Lightning bolts are plasma channels.'
+  },
+  {
+    id: 'chem-gas-97',
+    text: 'The value of R in cal/mol K is:',
+    options: ['1.987', '0.0821', '8.314', '62.4'],
+    correctAnswer: '1.987',
+    explanation: 'Standard value in calories.'
+  },
+  {
+    id: 'chem-gas-98',
+    text: 'If we use DM³ and ATM, the value of R is:',
+    options: ['0.0821', '8.314', '1.987', '0.0082'],
+    correctAnswer: '0.0821',
+    explanation: 'Standard value for these units.'
+  },
+  {
+    id: 'chem-gas-99',
+    text: 'A gas that is easily liquefied has _____ intermolecular forces.',
+    options: ['Strong', 'Weak', 'Zero', 'Repulsive'],
+    correctAnswer: 'Strong',
+    explanation: 'Attractions help pull molecules together into a liquid.'
+  },
+  {
+    id: 'chem-gas-100',
+    text: 'The study of the properties of gases led to the development of the:',
+    options: ['Atomic Theory', 'Kinetic Molecular Theory', 'Quantum Mechanics', 'Periodic Table'],
+    correctAnswer: 'Kinetic Molecular Theory',
+    explanation: 'KMT provides a microscopic explanation for macroscopic gas behavior.'
   }
 ];

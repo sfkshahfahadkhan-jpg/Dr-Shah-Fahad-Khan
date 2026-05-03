@@ -350,5 +350,356 @@ export const CHEMISTRY_BASIC_CONCEPTS_QUIZ: Question[] = [
     options: ['Avogadro number', 'Loschmidt number', 'Faraday number', 'Atomic number'],
     correctAnswer: 'Loschmidt number',
     explanation: 'Loschmidt number is the number of molecules per unit volume of an ideal gas at STP.'
+  },
+  {
+    id: 'chem-basic-51',
+    text: 'The number of grams of a substance that contains 6.022 x 10^23 particles is called its:',
+    options: ['Atomic mass', 'Molar mass', 'Equivalent mass', 'Molecular mass'],
+    correctAnswer: 'Molar mass',
+    explanation: 'Molar mass is the mass of one mole of a substance.'
+  },
+  {
+    id: 'chem-basic-52',
+    text: 'How many atoms are in 1.0 mole of Phosphorus (P4)?',
+    options: ['6.022 x 10^23', '2.409 x 10^24', '1.204 x 10^24', '4'],
+    correctAnswer: '2.409 x 10^24',
+    explanation: '1 mole P4 has 4 * Na atoms = 24.088 x 10^23.'
+  },
+  {
+    id: 'chem-basic-53',
+    text: 'A compound with molecular mass 180 has empirical formula CH2O. Its molecular formula is:',
+    options: ['C6H12O6', 'C3H6O3', 'C12H24O12', 'C2H4O2'],
+    correctAnswer: 'C6H12O6',
+    explanation: 'E.F. mass = 12+2+16 = 30. n = 180/30 = 6. M.F. = 6 * (CH2O) = C6H12O6.'
+  },
+  {
+    id: 'chem-basic-54',
+    text: 'Which of the following contains the greatest mass of Chlorine?',
+    options: ['1 mole Cl2', '1 mole HCl', '1 mole NaCl', '1 mole CCl4'],
+    correctAnswer: '1 mole CCl4',
+    explanation: '1 mole CCl4 has 4 moles of Cl atoms (4 * 35.5 = 142g).'
+  },
+  {
+    id: 'chem-basic-55',
+    text: 'What is the mass of 0.5 mole of CO2?',
+    options: ['22g', '44g', '11g', '88g'],
+    correctAnswer: '22g',
+    explanation: 'Mass = 0.5 * 44 = 22g.'
+  },
+  {
+    id: 'chem-basic-56',
+    text: 'The percentage of Carbon in Calcium Carbonate (CaCO3) is:',
+    options: ['12%', '40%', '48%', '60%'],
+    correctAnswer: '12%',
+    explanation: 'Molar mass = 40+12+48 = 100. %C = (12/100) * 100 = 12%.'
+  },
+  {
+    id: 'chem-basic-57',
+    text: 'How many moles of ions are in 1 mole of Al2(SO4)3?',
+    options: ['2', '3', '5', '1'],
+    correctAnswer: '5',
+    explanation: 'It dissociates into 2 Al³⁺ and 3 SO₄²⁻ ions. Total 2+3=5.'
+  },
+  {
+    id: 'chem-basic-58',
+    text: 'Which of the following is a quantitative statement about a chemical reaction?',
+    options: ['Hydrogen reacts with Oxygen', '2g of H2 reacts with 16g of O2 to give 18g of H2O', 'Water is formed', 'Heat is released'],
+    correctAnswer: '2g of H2 reacts with 16g of O2 to give 18g of H2O',
+    explanation: 'Quantitative statements include numerical values.'
+  },
+  {
+    id: 'chem-basic-59',
+    text: 'The mass of one molecule of Water (H2O) is:',
+    options: ['18g', '3.0 x 10^-23 g', '6.0 x 10^-23 g', '18 amu'],
+    correctAnswer: '3.0 x 10^-23 g',
+    explanation: '18 / (6.022 x 10^23) ≈ 2.99 x 10^-23 g.'
+  },
+  {
+    id: 'chem-basic-60',
+    text: 'One mole of H2O contains _____ moles of atoms.',
+    options: ['1', '2', '3', '6'],
+    correctAnswer: '3',
+    explanation: '2 moles of H and 1 mole of O atoms.'
+  },
+  {
+    id: 'chem-basic-61',
+    text: 'Standard temperature and pressure (STP) refers to:',
+    options: ['25°C and 1 atm', '0°C and 1 atm', '273 K and 101325 Pa', 'Both B and C'],
+    correctAnswer: 'Both B and C',
+    explanation: '0°C = 273.15 K; 1 atm = 101325 Pa.'
+  },
+  {
+    id: 'chem-basic-62',
+    text: 'The molar mass of Glucose (C6H12O6) is:',
+    options: ['100', '180', '342', '60'],
+    correctAnswer: '180',
+    explanation: '6*12 + 12*1 + 6*16 = 72 + 12 + 96 = 180.'
+  },
+  {
+    id: 'chem-basic-63',
+    text: 'The number of molecules in 2.8g of Carbon monoxide (CO) is:',
+    options: ['6.0 x 10^23', '6.0 x 10^22', '1.2 x 10^23', '3.0 x 10^22'],
+    correctAnswer: '6.0 x 10^22',
+    explanation: '2.8/28 = 0.1 moles. 0.1 * 6.022 x 10^23 = 6.022 x 10^22.'
+  },
+  {
+    id: 'chem-basic-64',
+    text: 'Stoichiometry is only valid for reactions that:',
+    options: ['Go to completion', 'Are reversible', 'Are very fast', 'Occur in gas phase'],
+    correctAnswer: 'Go to completion',
+    explanation: 'Ideal calculations assume all reactants convert to products.'
+  },
+  {
+    id: 'chem-basic-65',
+    text: 'What is the number of moles of solute in 500 cm³ of 2.0 M solution?',
+    options: ['1.0', '2.0', '0.5', '4.0'],
+    correctAnswer: '1.0',
+    explanation: 'Moles = Molarity * Volume(L) = 2.0 * 0.5 = 1.0.'
+  },
+  {
+    id: 'chem-basic-66',
+    text: 'Which is a poly-isotopic element?',
+    options: ['Fluorine', 'Sodium', 'Gold', 'Nickel'],
+    correctAnswer: 'Nickel',
+    explanation: 'Nickel has 5 stable isotopes. F, Na, and Au are mono-isotopic.'
+  },
+  {
+    id: 'chem-basic-67',
+    text: 'The mass of 1 mole of P4O10 is (P=31, O=16):',
+    options: ['140g', '284g', '424g', '250g'],
+    correctAnswer: '284g',
+    explanation: '4*31 + 10*16 = 124 + 160 = 284g.'
+  },
+  {
+    id: 'chem-basic-68',
+    text: 'Percentage of Calcium in CaCO3 (MW=100) is:',
+    options: ['40%', '12%', '48%', '10%'],
+    correctAnswer: '40%',
+    explanation: 'Ca mass = 40. % = 40/100 = 40%.'
+  },
+  {
+    id: 'chem-basic-69',
+    text: 'Number of Oxygen atoms in 0.1 mole of Na2CO3.10H2O is:',
+    options: ['1.3 Na', '0.3 Na', '1.0 Na', '0.1 Na'],
+    correctAnswer: '1.3 Na',
+    explanation: '1 formula unit has 3 + 10 = 13 Oxygen atoms. 0.1 mole has 1.3 moles of atoms.'
+  },
+  {
+    id: 'chem-basic-70',
+    text: 'Atomic mass of Magnesium is 24 amu. What is its gram-atomic mass?',
+    options: ['24g', '12g', '24 kg', '0.24g'],
+    correctAnswer: '24g',
+    explanation: 'Gram-atomic mass is the atomic mass expressed in grams.'
+  },
+  {
+    id: 'chem-basic-71',
+    text: 'Which has the least number of molecules?',
+    options: ['2g of H2', '16g of O2', '28g of N2', '18g of H2O'],
+    correctAnswer: '16g of O2',
+    explanation: '2g H2 = 1 mol. 16g O2 = 0.5 mol. 28g N2 = 1 mol. 18g H2O = 1 mol. O2 has the least moles.'
+  },
+  {
+    id: 'chem-basic-72',
+    text: 'How many electrons are in 1.0g of Hydrogen (H-1)?',
+    options: ['6.02 x 10^23', '1.20 x 10^24', '3.01 x 10^23', 'None'],
+    correctAnswer: '6.02 x 10^23',
+    explanation: '1.0g H = 1 mole H atoms. Each atom has 1 electron.'
+  },
+  {
+    id: 'chem-basic-73',
+    text: 'The volume of 1g of Hydrogen gas at STP is:',
+    options: ['11.2 dm³', '22.4 dm³', '5.6 dm³', '1.12 dm³'],
+    correctAnswer: '11.2 dm³',
+    explanation: '1g H2 = 1/2 = 0.5 moles. Volume = 0.5 * 22.4 = 11.2 dm³.'
+  },
+  {
+    id: 'chem-basic-74',
+    text: 'The mass of Oxygen produced by the decomposition of 12.25g of KClO3 (MW=122.5) is:',
+    options: ['4.8g', '3.2g', '1.6g', '9.6g'],
+    correctAnswer: '4.8g',
+    explanation: '2KClO3 -> 2KCl + 3O2. 12.25g = 0.1 moles KClO3. Moles O2 = (3/2) * 0.1 = 0.15. Mass = 0.15 * 32 = 4.8g.'
+  },
+  {
+    id: 'chem-basic-75',
+    text: 'Which is a triatomic molecule?',
+    options: ['He', 'Cl2', 'O3', 'P4'],
+    correctAnswer: 'O3',
+    explanation: 'Ozone has 3 atoms.'
+  },
+  {
+    id: 'chem-basic-76',
+    text: 'The mass of CO2 produced by burning 12g of pure Carbon is:',
+    options: ['12g', '24g', '44g', '32g'],
+    correctAnswer: '44g',
+    explanation: 'C + O2 -> CO2. 1 mole C (12g) gives 1 mole CO2 (44g).'
+  },
+  {
+    id: 'chem-basic-77',
+    text: 'Isotopes of the same element have the same:',
+    options: ['Chemical properties', 'Electronic configuration', 'Position in periodic table', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'These depend on the atomic number (protons), which is same for isotopes.'
+  },
+  {
+    id: 'chem-basic-78',
+    text: 'The number of neutrons in 1 mole of Deuterium (H-2) is:',
+    options: ['Na', '2 Na', 'Zero', '0.5 Na'],
+    correctAnswer: 'Na',
+    explanation: 'Each D atom has 1 neutron.'
+  },
+  {
+    id: 'chem-basic-79',
+    text: 'Avogadro’s number of atoms are present in:',
+    options: ['16g O', '16g O2', '32g O', '8g O'],
+    correctAnswer: '16g O',
+    explanation: '16g of O atoms is 1 mole.'
+  },
+  {
+    id: 'chem-basic-80',
+    text: 'The number of moles of Nitrogen in 7g is:',
+    options: ['0.25 mol of N2', '0.5 mol of N2', '0.5 mol of N', 'Both A and C'],
+    correctAnswer: 'Both A and C',
+    explanation: '7g N2 = 7/28 = 0.25 mol. 7g N atoms = 7/14 = 0.5 mol.'
+  },
+  {
+    id: 'chem-basic-81',
+    text: 'The number of moles of Sulphur atoms in 1 mole of H2SO4 is:',
+    options: ['1', '2', '4', '7'],
+    correctAnswer: '1',
+    explanation: 'The formula has 1 S atom per molecule.'
+  },
+  {
+    id: 'chem-basic-82',
+    text: 'Which contains more atoms?',
+    options: ['1 mole Cl2', '1 mole Cl', 'Same', 'Cannot be determined'],
+    correctAnswer: '1 mole Cl2',
+    explanation: '1 mole Cl2 has 2 * Na atoms; 1 mole Cl has 1 * Na atoms.'
+  },
+  {
+    id: 'chem-basic-83',
+    text: 'The percentage of Oxygen in NaOH (MW=40) is:',
+    options: ['40%', '16%', '20%', '50%'],
+    correctAnswer: '40%',
+    explanation: 'O mass = 16. % = 16/40 = 0.4 = 40%.'
+  },
+  {
+    id: 'chem-basic-84',
+    text: 'Molar volume of H2 at 0°C and 1 atm is:',
+    options: ['22.414 dm³', '11.2 dm³', '2.24 dm³', '0.224 dm³'],
+    correctAnswer: '22.414 dm³',
+    explanation: 'Standard molar volume.'
+  },
+  {
+    id: 'chem-basic-85',
+    text: 'Mass of 1 mole of electron is:',
+    options: ['0.548 mg', '1.008 mg', '9.11 mg', '0.000548 g'],
+    correctAnswer: '0.548 mg',
+    explanation: '0.000548g = 0.548 mg.'
+  },
+  {
+    id: 'chem-basic-86',
+    text: 'Actual yield is always _____ than theoretical yield.',
+    options: ['Greater', 'Smaller', 'Equal', 'Twice'],
+    correctAnswer: 'Smaller',
+    explanation: 'Due to inefficiencies in practice.'
+  },
+  {
+    id: 'chem-basic-87',
+    text: 'Molecular formula of glucose is C6H12O6. Its empirical formula is:',
+    options: ['CH2O', 'CHO', 'C2H4O2', 'C3H6O3'],
+    correctAnswer: 'CH2O',
+    explanation: 'Simplest ratio 6:12:6 -> 1:2:1.'
+  },
+  {
+    id: 'chem-basic-88',
+    text: 'How many atoms are in 18g of Water?',
+    options: ['6.02 x 10^23', '1.20 x 10^24', '1.81 x 10^24', '3.0'],
+    correctAnswer: '1.81 x 10^24',
+    explanation: '1 mole H2O has 3 * Na atoms = 18.066 x 10^23.'
+  },
+  {
+    id: 'chem-basic-89',
+    text: 'Mass of 1 mole of NH3 is:',
+    options: ['17g', '14g', '15g', '3g'],
+    correctAnswer: '17g',
+    explanation: '14 + 3*1 = 17.'
+  },
+  {
+    id: 'chem-basic-90',
+    text: 'Relative atomic mass of O-16 is:',
+    options: ['16 amu', '16g', '8 amu', '32 amu'],
+    correctAnswer: '16 amu',
+    explanation: 'Atomic mass units.'
+  },
+  {
+    id: 'chem-basic-91',
+    text: 'One mole of Carbon contains _____ atoms.',
+    options: ['6.02 x 10^23', '1.2 x 10^24', '12', '1.0'],
+    correctAnswer: '6.02 x 10^23',
+    explanation: 'Definition of a mole.'
+  },
+  {
+    id: 'chem-basic-92',
+    text: '22.4 dm³ of CO2 at STP has mass:',
+    options: ['44g', '22g', '11g', '88g'],
+    correctAnswer: '44g',
+    explanation: '1 mole CO2 = 44g.'
+  },
+  {
+    id: 'chem-basic-93',
+    text: 'Which of the following is used for combustion analysis?',
+    options: ['Mass spectrometer', 'Absorption tubes (KOH, Mg(ClO4)2)', 'Filter paper', 'Centrifuge'],
+    correctAnswer: 'Absorption tubes (KOH, Mg(ClO4)2)',
+    explanation: 'KOH absorbs CO2; Mg(ClO4)2 absorbs H2O.'
+  },
+  {
+    id: 'chem-basic-94',
+    text: 'Limiting reactant is based on:',
+    options: ['Mass of reactants', 'Moles of reactants', 'Balanced chemical equation', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'It is determined by comparing mole ratios from the equation.'
+  },
+  {
+    id: 'chem-basic-95',
+    text: 'Number of electrons in 1 mole of O2- ion is:',
+    options: ['8 Na', '10 Na', '16 Na', '18 Na'],
+    correctAnswer: '10 Na',
+    explanation: 'Oxygen (8e) + 2e (gain) = 10e.'
+  },
+  {
+    id: 'chem-basic-96',
+    text: 'Percentage of S in H2SO4 (MW=98) is:',
+    options: ['32.6%', '32.1%', '40.0%', '64.0%'],
+    correctAnswer: '32.6%',
+    explanation: '32/98 = 0.3265 = 32.65%.'
+  },
+  {
+    id: 'chem-basic-97',
+    text: 'Mass of 1 mole of NaCl is:',
+    options: ['58.5g', '58.5 amu', '23g', '35.5g'],
+    correctAnswer: '58.5g',
+    explanation: '23 + 35.5 = 58.5.'
+  },
+  {
+    id: 'chem-basic-98',
+    text: 'One mole of any gas at STP occupies:',
+    options: ['22.4 dm³', '22400 cm³', '0.0224 m³', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'Conversions of volume units.'
+  },
+  {
+    id: 'chem-basic-99',
+    text: 'The empirical formula of CH3COOH (Acetic acid) is:',
+    options: ['CH2O', 'CHO', 'C2H4O2', 'CH3'],
+    correctAnswer: 'CH2O',
+    explanation: 'Formula C2H4O2 -> ratio 1:2:1.'
+  },
+  {
+    id: 'chem-basic-100',
+    text: 'Efficiency of a reaction is measured by:',
+    options: ['Theoretical yield', 'Actual yield', 'Percentage yield', 'Amount of reactants'],
+    correctAnswer: 'Percentage yield',
+    explanation: '% Yield = (Actual/Theoretical) * 100.'
   }
 ];
+

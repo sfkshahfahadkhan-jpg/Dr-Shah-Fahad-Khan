@@ -350,5 +350,356 @@ export const BIOLOGY_INTRO_QUIZ: Question[] = [
     options: ['Morphology', 'Physiology', 'Genetics', 'Ecology'],
     correctAnswer: 'Physiology',
     explanation: 'Photosynthesis is a vital function, and its study falls under plant physiology.'
+  },
+  {
+    id: 'bio-intro-51',
+    text: 'Which of the following is the correct sequence of biological organization levels?',
+    options: ['Cell -> Tissue -> Organ -> Organ System', 'Tissue -> Cell -> Organ -> Organ System', 'Organ -> Tissue -> Cell -> Organ System', 'Cell -> Organ -> Tissue -> Organ System'],
+    correctAnswer: 'Cell -> Tissue -> Organ -> Organ System',
+    explanation: 'The hierarchical order is Cell, then Tissue, then Organ, then Organ System.'
+  },
+  {
+    id: 'bio-intro-52',
+    text: 'The study of the relationship between organisms and their environment is:',
+    options: ['Environmental Biology', 'Ecology', 'Both A and B', 'Social Biology'],
+    correctAnswer: 'Both A and B',
+    explanation: 'Ecology is the scientific name for environmental biology.'
+  },
+  {
+    id: 'bio-intro-53',
+    text: 'Which of the following is a bio-element that makes up 1% of the human body mass?',
+    options: ['Magnesium', 'Potassium', 'Chlorine', 'Iron'],
+    correctAnswer: 'Potassium',
+    explanation: 'Potassium (0.35%), Sulfur (0.25%), Chlorine (0.15%), Magnesium (0.05%) are among the 10 bio-elements that make up 1%.'
+  },
+  {
+    id: 'bio-intro-54',
+    text: 'The most abundant inorganic compound in all living organisms is:',
+    options: ['Water', 'Carbon dioxide', 'Sodium chloride', 'Glucose'],
+    correctAnswer: 'Water',
+    explanation: 'Water accounts for 70-90% of the weight of most cells.'
+  },
+  {
+    id: 'bio-intro-55',
+    text: 'The study of the distribution of animals on Earth is:',
+    options: ['Biogeography', 'Zoogeography', 'Phytogeography', 'Ecology'],
+    correctAnswer: 'Zoogeography',
+    explanation: 'Zoogeography is a sub-branch of biogeography dealing with animals.'
+  },
+  {
+    id: 'bio-intro-56',
+    text: 'Which level of organization is the "Biosphere"?',
+    options: ['Level 10', 'Level 12', 'The highest level', 'Level 5'],
+    correctAnswer: 'The highest level',
+    explanation: 'The biosphere includes all life zones on Earth.'
+  },
+  {
+    id: 'bio-intro-57',
+    text: 'A collection of populations of different species interacting in a given area is a:',
+    options: ['Species', 'Community', 'Ecosystem', 'Landscape'],
+    correctAnswer: 'Community',
+    explanation: 'Different populations (species) in one area form a community.'
+  },
+  {
+    id: 'bio-intro-58',
+    text: 'The use of living organisms in industrial processes is:',
+    options: ['Social Biology', 'Biotechnology', 'Microbiology', 'Molecular Biology'],
+    correctAnswer: 'Biotechnology',
+    explanation: 'Biotechnology uses organisms for manufacturing and services.'
+  },
+  {
+    id: 'bio-intro-59',
+    text: 'Which field would study the impact of sulfur dioxide on plant growth?',
+    options: ['Environmental Biology', 'Marine Biology', 'Molecular Biology', 'Histology'],
+    correctAnswer: 'Environmental Biology',
+    explanation: 'It deals with the effect of environmental pollutants on life.'
+  },
+  {
+    id: 'bio-intro-60',
+    text: 'The study of the structure of the human body at the macroscopic level is:',
+    options: ['Gross Anatomy', 'Histology', 'Cytology', 'Embryology'],
+    correctAnswer: 'Gross Anatomy',
+    explanation: 'Gross anatomy is study of structures visible to the naked eye.'
+  },
+  {
+    id: 'bio-intro-61',
+    text: 'Which of the following is a trace bio-element?',
+    options: ['Copper', 'Calcium', 'Carbon', 'Hydrogen'],
+    correctAnswer: 'Copper',
+    explanation: 'Copper is required in very small amounts.'
+  },
+  {
+    id: 'bio-intro-62',
+    text: 'The study of the fossilized remains of plants is:',
+    options: ['Paleontology', 'Paleobotany', 'Paleozoology', 'Archeology'],
+    correctAnswer: 'Paleobotany',
+    explanation: 'Paleobotany focuses on plant fossils.'
+  },
+  {
+    id: 'bio-intro-63',
+    text: 'Which level of biological organization is missing in single-celled organisms like Amoeba?',
+    options: ['Organelle', 'Tissue', 'Molecule', 'Cell'],
+    correctAnswer: 'Tissue',
+    explanation: 'Unicellular organisms function as a single cell and do not form tissues.'
+  },
+  {
+    id: 'bio-intro-64',
+    text: 'A community where living and non-living components interact is called an:',
+    options: ['Ecosystem', 'Population', 'Habitat', 'Niche'],
+    correctAnswer: 'Ecosystem',
+    explanation: 'An ecosystem = Community + Abiotic environment.'
+  },
+  {
+    id: 'bio-intro-65',
+    text: 'The branch of biology dealing with the classification of organisms is:',
+    options: ['Taxonomy', 'Systematics', 'Ecology', 'Genetics'],
+    correctAnswer: 'Taxonomy',
+    explanation: 'Taxonomy is naming and classifying.'
+  },
+  {
+    id: 'bio-intro-66',
+    text: 'How many bio-elements are essential for life in humans?',
+    options: ['92', '16', '6', '25'],
+    correctAnswer: '16',
+    explanation: 'Out of 92 natural elements, 16 are considered bio-elements.'
+  },
+  {
+    id: 'bio-intro-67',
+    text: 'The study of the immune system of an organism is:',
+    options: ['Immunology', 'Serology', 'Histology', 'Pathology'],
+    correctAnswer: 'Immunology',
+    explanation: 'Immunology studies the body’s defense mechanisms.'
+  },
+  {
+    id: 'bio-intro-68',
+    text: 'The smallest particle of an element that retains the properties of that element is the:',
+    options: ['Atom', 'Molecule', 'Proton', 'Electron'],
+    correctAnswer: 'Atom',
+    explanation: 'The atom is the basic unit of an element.'
+  },
+  {
+    id: 'bio-intro-69',
+    text: 'Which level comes after System in the levels of organization?',
+    options: ['Individual/Organism', 'Population', 'Community', 'Organ'],
+    correctAnswer: 'Individual/Organism',
+    explanation: 'Multiple systems working together form an individual.'
+  },
+  {
+    id: 'bio-intro-70',
+    text: 'The study of the form and external structure of organisms is:',
+    options: ['Morphology', 'Anatomy', 'Physiology', 'Histology'],
+    correctAnswer: 'Morphology',
+    explanation: 'Morphology deals with the external shape and form.'
+  },
+  {
+    id: 'bio-intro-71',
+    text: 'Biological sciences can be linked with other sciences like physics to form:',
+    options: ['Biophysics', 'Biochemistry', 'Biometry', 'Biogeography'],
+    correctAnswer: 'Biophysics',
+    explanation: 'Biophysics applies principles of physics to biological systems.'
+  },
+  {
+    id: 'bio-intro-72',
+    text: 'The analysis of the chemical processes occurring in living organisms is:',
+    options: ['Biochemistry', 'Biogeography', 'Biophysics', 'Biostatistics'],
+    correctAnswer: 'Biochemistry',
+    explanation: 'Biochemistry (Molecular Biology) deals with the chemistry of life.'
+  },
+  {
+    id: 'bio-intro-73',
+    text: 'In which level of organization do we consider the "total number of students in a classroom"?',
+    options: ['Individual', 'Population', 'Community', 'Ecosystem'],
+    correctAnswer: 'Population',
+    explanation: 'Same species in a specific area at a specific time.'
+  },
+  {
+    id: 'bio-intro-74',
+    text: 'Which of the following is NOT a bio-element found in 99% of human mass?',
+    options: ['Oxygen', 'Hydrogen', 'Carbon', 'Sodium'],
+    correctAnswer: 'Sodium',
+    explanation: 'Sodium is part of the 1% elements.'
+  },
+  {
+    id: 'bio-intro-75',
+    text: 'The study of the development of an organism from a single cell (zygote) is:',
+    options: ['Embryology', 'Genetics', 'Evolution', 'Physiology'],
+    correctAnswer: 'Embryology',
+    explanation: 'Developmental biology focuses on the growth from embryo.'
+  },
+  {
+    id: 'bio-intro-76',
+    text: 'Which branch of biology focuses on the study of microscopic organisms like bacteria and viruses?',
+    options: ['Microbiology', 'Molecular Biology', 'Histology', 'Zoology'],
+    correctAnswer: 'Microbiology',
+    explanation: 'Microbiology deals with organisms visible only under a microscope.'
+  },
+  {
+    id: 'bio-intro-77',
+    text: 'The use of data and statistics in biological experiments is:',
+    options: ['Biostatistics', 'Biometry', 'Both A and B', 'Bioinformatics'],
+    correctAnswer: 'Both A and B',
+    explanation: 'Biometry/Biostatistics is used for data analysis in biology.'
+  },
+  {
+    id: 'bio-intro-78',
+    text: 'The study of the origin and history of living organisms is:',
+    options: ['Paleontology', 'Evolution', 'History of Biology', 'Taxonomy'],
+    correctAnswer: 'Evolution',
+    explanation: 'Evolution explains how species originated and changed.'
+  },
+  {
+    id: 'bio-intro-79',
+    text: 'A tissue is formed by the assembly of:',
+    options: ['Different cells', 'Similar cells', 'Different organs', 'Molecules'],
+    correctAnswer: 'Similar cells',
+    explanation: 'Tissues are groups of similar cells with a common function.'
+  },
+  {
+    id: 'bio-intro-80',
+    text: 'Which of the following is an example of an organ?',
+    options: ['Stomach', 'Epithelium', 'Neuron', 'Blood'],
+    correctAnswer: 'Stomach',
+    explanation: 'Stomach is an organ; epithelium is a tissue; neuron is a cell.'
+  },
+  {
+    id: 'bio-intro-81',
+    text: 'The study of the behavior of social insects like bees and ants is:',
+    options: ['Ethology', 'Social Biology', 'Entomology', 'Ecology'],
+    correctAnswer: 'Social Biology',
+    explanation: 'Social biology deals with communal life and social behavior.'
+  },
+  {
+    id: 'bio-intro-82',
+    text: 'The main difference between a community and an ecosystem is the inclusion of:',
+    options: ['Living things', 'Non-living things', 'Different species', 'Space'],
+    correctAnswer: 'Non-living things',
+    explanation: 'Ecosystems include abiotic factors; communities only include biotic ones.'
+  },
+  {
+    id: 'bio-intro-83',
+    text: 'Which field would investigate the production of synthetic insulin?',
+    options: ['Genetics', 'Biotechnology', 'Microbiology', 'Human Biology'],
+    correctAnswer: 'Biotechnology',
+    explanation: 'Using living cells (like E. coli) for industrial medical products.'
+  },
+  {
+    id: 'bio-intro-84',
+    text: 'The study of the internal structures of an organism at the microscopic level is:',
+    options: ['Anatomy', 'Histology', 'Cytology', 'Pathology'],
+    correctAnswer: 'Histology',
+    explanation: 'Histology is micro-anatomy.'
+  },
+  {
+    id: 'bio-intro-85',
+    text: 'An example of a micro-molecule in cells is:',
+    options: ['Glucose', 'Protein', 'DNA', 'Starch'],
+    correctAnswer: 'Glucose',
+    explanation: 'Micro-molecules have low molecular weight (glucose, water, CO2).'
+  },
+  {
+    id: 'bio-intro-86',
+    text: 'Which bio-element is required for the construction of hemoglobin?',
+    options: ['Magnesium', 'Iron', 'Calcium', 'Zinc'],
+    correctAnswer: 'Iron',
+    explanation: 'The "heme" group in hemoglobin contains an iron atom.'
+  },
+  {
+    id: 'bio-intro-87',
+    text: 'The study of the functions of the nervous system is:',
+    options: ['Neurophysiology', 'Neuroanatomy', 'Neurology', 'Histology'],
+    correctAnswer: 'Neurophysiology',
+    explanation: 'Physiology deals with function.'
+  },
+  {
+    id: 'bio-intro-88',
+    text: 'The hierarchical level between Population and Ecosystem is:',
+    options: ['Species', 'Community', 'Individual', 'Biosphere'],
+    correctAnswer: 'Community',
+    explanation: 'Population -> Community -> Ecosystem.'
+  },
+  {
+    id: 'bio-intro-89',
+    text: 'Which branch of biology helps in understanding the transmission of traits from parents to offspring?',
+    options: ['Embryology', 'Genetics', 'Evolution', 'Paleontology'],
+    correctAnswer: 'Genetics',
+    explanation: 'Genetics is the study of heredity.'
+  },
+  {
+    id: 'bio-intro-90',
+    text: 'The percentage of Hydrogen in the human body by mass is:',
+    options: ['10%', '65%', '18%', '3%'],
+    correctAnswer: '10%',
+    explanation: 'Oxygen (65%), Carbon (18%), Hydrogen (10%).'
+  },
+  {
+    id: 'bio-intro-91',
+    text: 'Which level of organization focuses on the "study of the Earth as a giant ecosystem"?',
+    options: ['Biosphere', 'Landscape', 'Biome', 'Global Ecology'],
+    correctAnswer: 'Biosphere',
+    explanation: 'The biosphere is the highest level of ecological study.'
+  },
+  {
+    id: 'bio-intro-92',
+    text: 'Molecular biology is closely related to which other field?',
+    options: ['Biophysics', 'Biochemistry', 'Genetics', 'All of above'],
+    correctAnswer: 'All of above',
+    explanation: 'Molecular biology overlaps with biochemistry and genetics.'
+  },
+  {
+    id: 'bio-intro-93',
+    text: 'The study of the relationship between organisms and energy is:',
+    options: ['Bioenergetics', 'Biochemistry', 'Biophysics', 'Thermodynamics'],
+    correctAnswer: 'Bioenergetics',
+    explanation: 'Bioenergetics studies energy transformations in cells.'
+  },
+  {
+    id: 'bio-intro-94',
+    text: 'Which of the following is NOT a level of biological organization?',
+    options: ['Atom', 'Molecule', 'Sub-atomic particle', 'Neutrino'],
+    correctAnswer: 'Neutrino',
+    explanation: 'Neutrinos are subatomic particles but are not traditionally part of the biological hierarchy.'
+  },
+  {
+    id: 'bio-intro-95',
+    text: 'A scientist observing a pride of lions hunting a herd of zebras is studying at the level of:',
+    options: ['Population', 'Community', 'Individual', 'Species'],
+    correctAnswer: 'Community',
+    explanation: 'Two different populations interacting in one area.'
+  },
+  {
+    id: 'bio-intro-96',
+    text: 'Which field deals with the application of biological knowledge to solve human problems?',
+    options: ['Pure Biology', 'Applied Biology', 'Social Biology', 'Genetics'],
+    correctAnswer: 'Applied Biology',
+    explanation: 'Medicine, Agriculture, etc., are applied biology.'
+  },
+  {
+    id: 'bio-intro-97',
+    text: 'The study of the effects of ionizing radiation on living organisms is:',
+    options: ['Radiobiology', 'Molecular Biology', 'Histology', 'Biophysics'],
+    correctAnswer: 'Radiobiology',
+    explanation: 'Radiobiology is a specialized field.'
+  },
+  {
+    id: 'bio-intro-98',
+    text: 'Which of the following is considered a "living non-living" entity depending on its environment?',
+    options: ['Bacteria', 'Virus', 'Fungi', 'Prion'],
+    correctAnswer: 'Virus',
+    explanation: 'Viruses are inert outside cells but "alive" inside.'
+  },
+  {
+    id: 'bio-intro-99',
+    text: 'The most abundant element in the Earth’s crust is Oxygen, which is also most abundant in humans. This shows:',
+    options: ['Life is independent of Earth', 'Biological systems are linked to the planet’s chemistry', 'Humans are made of rocks', 'Oxygen is not needed'],
+    correctAnswer: 'Biological systems are linked to the planet’s chemistry',
+    explanation: 'Bio-elements are derived from the Earth’s resources.'
+  },
+  {
+    id: 'bio-intro-100',
+    text: 'Biology is the study of:',
+    options: ['Plants only', 'Animals only', 'Life and living organisms', 'Microbes only'],
+    correctAnswer: 'Life and living organisms',
+    explanation: 'Biology comes from BIOS (life) and LOGOS (study).'
   }
 ];
+
