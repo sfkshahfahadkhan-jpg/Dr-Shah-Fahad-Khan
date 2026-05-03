@@ -397,7 +397,7 @@ export default function App() {
         studentName: studentInfo.name,
         sectionName: section.name,
         currentQuestionIndex: currentProgress.currentQuestionIndex,
-        totalQuestions: totalOverride || section.questions.length,
+        totalQuestions: totalOverride || questions.length || section.questions.length,
         score: currentProgress.score,
         lastUpdated: Date.now(),
         isFinished: finished
