@@ -55,6 +55,20 @@ import { MODERN_PHYSICS_QUIZ } from './data/modernPhysicsQuestions';
 import { ATOMIC_SPECTRA_QUIZ } from './data/atomicSpectraQuestions';
 import { NUCLEAR_PHYSICS_QUIZ } from './data/nuclearPhysicsQuestions';
 import { WAVES_QUIZ } from './data/wavesQuestions';
+import { BIOLOGY_INTRO_QUIZ } from './data/biologyIntroQuestions';
+import { BIOLOGY_MOLECULES_QUIZ } from './data/biologyMoleculesQuestions';
+import { BIOLOGY_ENZYMES_QUIZ } from './data/biologyEnzymesQuestions';
+import { BIOLOGY_CELL_QUIZ } from './data/biologyCellQuestions';
+import { BIOLOGY_VARIETY_LIFE_QUIZ } from './data/biologyVarietyLifeQuestions';
+import { BIOLOGY_PROKARYOTES_QUIZ } from './data/biologyProkaryotesQuestions';
+import { CHEMISTRY_BASIC_CONCEPTS_QUIZ } from './data/chemistryBasicConceptsQuestions';
+import { CHEMISTRY_EXPERIMENTAL_TECH_QUIZ } from './data/chemistryExperimentalTechQuestions';
+import { CHEMISTRY_GASES_QUIZ } from './data/chemistryGasesQuestions';
+import { CHEMISTRY_LIQUIDS_SOLIDS_QUIZ } from './data/chemistryLiquidsSolidsQuestions';
+import { CHEMISTRY_ATOMIC_STRUCTURE_QUIZ } from './data/chemistryAtomicStructureQuestions';
+import { CHEMISTRY_BONDING_QUIZ } from './data/chemistryBondingQuestions';
+
+
 
 
 export type Chapter = {
@@ -114,12 +128,18 @@ export const CURRICULUM = {
       '11': {
         name: 'Grade 11 (FSc Part 1)',
         chapters: [
-          { id: 'ch-basic-concepts', name: 'Basic Concepts', subtitle: 'Chapter 1: Stoichiometry and Moles', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'ch-experimental-tech', name: 'Experimental Techniques', subtitle: 'Chapter 2: Purification and Analysis', icon: Search, questions: [], timePerQuestion: 60 },
-          { id: 'ch-gases', name: 'Gases', subtitle: 'Chapter 3: Kinetic Molecular Theory', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'ch-liquids-solids', name: 'Liquids and Solids', subtitle: 'Chapter 4: Intermolecular Forces', icon: Target, questions: [], timePerQuestion: 60 },
-          { id: 'ch-atomic-structure', name: 'Atomic Structure', subtitle: 'Chapter 5: Quantum Numbers and Orbitals', icon: Star, questions: [], timePerQuestion: 60 },
-          { id: 'ch-chemical-bonding', name: 'Chemical Bonding', subtitle: 'Chapter 6: Molecular Geometry', icon: Zap, questions: [], timePerQuestion: 60 },
+          { id: 'ch-basic-concepts', name: 'Basic Concepts', subtitle: 'Chapter 1: Stoichiometry and Moles', icon: FileText, questions: CHEMISTRY_BASIC_CONCEPTS_QUIZ, timePerQuestion: 60 },
+
+          { id: 'ch-experimental-tech', name: 'Experimental Techniques', subtitle: 'Chapter 2: Purification and Analysis', icon: Search, questions: CHEMISTRY_EXPERIMENTAL_TECH_QUIZ, timePerQuestion: 60 },
+
+          { id: 'ch-gases', name: 'Gases', subtitle: 'Chapter 3: Kinetic Molecular Theory', icon: Activity, questions: CHEMISTRY_GASES_QUIZ, timePerQuestion: 60 },
+
+          { id: 'ch-liquids-solids', name: 'Liquids and Solids', subtitle: 'Chapter 4: Intermolecular Forces', icon: Target, questions: CHEMISTRY_LIQUIDS_SOLIDS_QUIZ, timePerQuestion: 60 },
+
+          { id: 'ch-atomic-structure', name: 'Atomic Structure', subtitle: 'Chapter 5: Quantum Numbers and Orbitals', icon: Star, questions: CHEMISTRY_ATOMIC_STRUCTURE_QUIZ, timePerQuestion: 60 },
+
+          { id: 'ch-chemical-bonding', name: 'Chemical Bonding', subtitle: 'Chapter 6: Molecular Geometry', icon: Zap, questions: CHEMISTRY_BONDING_QUIZ, timePerQuestion: 60 },
+
           { id: 'ch-thermochemistry', name: 'Thermochemistry', subtitle: 'Chapter 7: Enthalpy and Calorimetry', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'ch-chemical-equilibrium', name: 'Chemical Equilibrium', subtitle: 'Chapter 8: Le Chatelier Principle', icon: Target, questions: [], timePerQuestion: 60 },
           { id: 'ch-solutions', name: 'Solutions', subtitle: 'Chapter 9: Concentration and Colligative Properties', icon: FileText, questions: [], timePerQuestion: 60 },
@@ -158,12 +178,18 @@ export const CURRICULUM = {
       '11': {
         name: 'Grade 11 (FSc Part 1)',
         chapters: [
-          { id: 'bio-intro', name: 'Introduction', subtitle: 'Chapter 1: Levels of Organization', icon: FileText, questions: [], timePerQuestion: 60 },
-          { id: 'bio-molecules', name: 'Biological Molecules', subtitle: 'Chapter 2: Carbohydrates, Lipids, Proteins', icon: Dna, questions: [], timePerQuestion: 60 },
-          { id: 'bio-enzymes', name: 'Enzymes', subtitle: 'Chapter 3: Kinetics and Inhibition', icon: Activity, questions: [], timePerQuestion: 60 },
-          { id: 'bio-cell', name: 'The Cell', subtitle: 'Chapter 4: Organelles and Functions', icon: Microscope, questions: [], timePerQuestion: 60 },
-          { id: 'bio-variety-life', name: 'Variety of Life', subtitle: 'Chapter 5: Virus and Classification', icon: Star, questions: [], timePerQuestion: 60 },
-          { id: 'bio-prokaryotes', name: 'Kingdom Prokaryotae', subtitle: 'Chapter 6: Bacteria and Cyanobacteria', icon: Microscope, questions: [], timePerQuestion: 60 },
+          { id: 'bio-intro', name: 'Introduction', subtitle: 'Chapter 1: Levels of Organization', icon: FileText, questions: BIOLOGY_INTRO_QUIZ, timePerQuestion: 60 },
+
+          { id: 'bio-molecules', name: 'Biological Molecules', subtitle: 'Chapter 2: Carbohydrates, Lipids, Proteins', icon: Dna, questions: BIOLOGY_MOLECULES_QUIZ, timePerQuestion: 60 },
+
+          { id: 'bio-enzymes', name: 'Enzymes', subtitle: 'Chapter 3: Kinetics and Inhibition', icon: Activity, questions: BIOLOGY_ENZYMES_QUIZ, timePerQuestion: 60 },
+
+          { id: 'bio-cell', name: 'The Cell', subtitle: 'Chapter 4: Organelles and Functions', icon: Microscope, questions: BIOLOGY_CELL_QUIZ, timePerQuestion: 60 },
+
+          { id: 'bio-variety-life', name: 'Variety of Life', subtitle: 'Chapter 5: Virus and Classification', icon: Star, questions: BIOLOGY_VARIETY_LIFE_QUIZ, timePerQuestion: 60 },
+
+          { id: 'bio-prokaryotes', name: 'Kingdom Prokaryotae', subtitle: 'Chapter 6: Bacteria and Cyanobacteria', icon: Microscope, questions: BIOLOGY_PROKARYOTES_QUIZ, timePerQuestion: 60 },
+
           { id: 'bio-protists', name: 'Kingdom Protista', subtitle: 'Chapter 7: Protozoa and Algae', icon: Activity, questions: [], timePerQuestion: 60 },
           { id: 'bio-fungi', name: 'Kingdom Fungi', subtitle: 'Chapter 8: Lifecycle and Classification', icon: Target, questions: [], timePerQuestion: 60 },
           { id: 'bio-plantae', name: 'Kingdom Plantae', subtitle: 'Chapter 9: Bryophytes to Angiosperms', icon: FileText, questions: [], timePerQuestion: 60 },
