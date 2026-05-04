@@ -563,7 +563,18 @@ export default function App() {
             >
               <ShieldCheck className="w-4 h-4" /> ADMIN PANEL
             </button>
-          )}
+          )}<button 
+  className="p-2 hover:bg-slate-100 rounded-full transition-all"
+  onClick={() => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }}
+  title="Toggle Dark Mode"
+>
+  🌓
+</button>
           {currentUser ? (
             <div className="flex items-center gap-4">
               <div className="hidden md:flex flex-col text-right">
