@@ -122,6 +122,7 @@ import { Question, QuizState, UserProgress, QuizSubmission, StudentProfile, Acce
 import { quizRegistry } from './quizRegistry';
 
 import founderImage from './assets/images/regenerated_image_1778922687893.jpg';
+import clinicalImage from './assets/images/regenerated_image_1778922486683.jpg';
 
 import { Scale } from 'lucide-react';
 
@@ -1577,7 +1578,7 @@ export default function App() {
                     className="aspect-[4/5] bg-brand-gold/10 dark:bg-brand-gold/5 rounded-[60px] border-4 border-brand-green/20 dark:border-brand-gold/30 overflow-hidden relative flex flex-col group/img"
                   >
                     <img 
-                      src="src/assets/images/regenerated_image_1778922486683.jpg"
+                      src={clinicalImage}
                       alt="Academy Institutional Focus"
                       className="absolute inset-0 w-full h-full object-cover grayscale brightness-90 group-hover/img:grayscale-0 group-hover/img:scale-105 transition-all duration-1000"
                       referrerPolicy="no-referrer"
