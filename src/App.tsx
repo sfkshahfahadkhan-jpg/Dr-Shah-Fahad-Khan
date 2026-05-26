@@ -124,6 +124,9 @@ import { quizRegistry } from './quizRegistry';
 import founderImage from './assets/images/regenerated_image_1778922687893.jpg';
 import clinicalImage from './assets/images/regenerated_image_1778922486683.jpg';
 
+console.log('Founder Image Path:', founderImage);
+console.log('Clinical Image Path:', clinicalImage);
+
 import { Scale } from 'lucide-react';
 
 
