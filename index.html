@@ -1,19 +1,22 @@
 <!doctype html>
 <html lang="en">
-  <style>
-  :root { --bg: #ffffff; --text: #111827; --card: #f3f4f6; }
-  [data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; --card: #1e293b; }
-  body { background: var(--bg); color: var(--text); transition: all 0.3s; }
-  .dark-btn { background: var(--card); border: 1px solid var(--text); color: var(--text); padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-left: 10px; }
-</style><head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google AI Studio App</title>
-  </head>
-  <script>
-  const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  document.documentElement.setAttribute('data-theme', theme);
-</script><body>
+    <style>
+      body { background-color: #f8fafc; color: #0f172a; transition: background-color 0.3s, color 0.3s; }
+      html.dark body { background-color: #020617; color: #f8fafc; }
+    </style>
+    <script>
+      const theme = localStorage.getItem('sfk-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head><body>
     <div id="root"></div>
     <script type="module" src="src/main.tsx"></script>
   </body>

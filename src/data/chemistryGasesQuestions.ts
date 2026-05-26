@@ -201,7 +201,8 @@ export const CHEMISTRY_GASES_QUIZ: Question[] = [
     id: 'chem-gas-29',
     text: 'The molar mass of an unknown gas occupying 22.4 dm³ at STP and weighing 44g is:',
     options: ['22', '44', '88', '32'],
-    explanation: 'Plasma consists of ionized gas.'
+    correctAnswer: '44',
+    explanation: 'At STP, 22.4 dm³ is the molar volume. If 22.4 dm³ weighs 44g, its molar mass is 44 g/mol.'
   },
   {
     id: 'chem-gas-55',

@@ -15,29 +15,8 @@
   --color-sfk-cream: #fdf5e6;
 }
 
-.watermark {
-  position: fixed;
-  inset: 0;
-  background-image: url("/logo.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50% auto;
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: -1;
-}
+@variant dark (&:where(.dark, .dark *));
 
 .heading-serif {
   font-family: var(--font-serif);
 }
-<button 
-  className="dark-toggle-btn" 
-  onClick={() => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }}
->
-  🌓 Dark Mode
-</button>

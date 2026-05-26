@@ -537,7 +537,7 @@ export const CHEMISTRY_TRANSITION_QUIZ: Question[] = [
     id: 'ch-tr-77',
     text: 'Iron is extracted from _____ ore.',
     options: ['Magnetite', 'Hematite (Fe2O3)', 'Siderite', 'Limonite'],
-    correctAnswer: Hematite (Fe2O3),
+    correctAnswer: 'Hematite (Fe2O3)',
     explanation: 'Most important ore of iron.'
   },
   {

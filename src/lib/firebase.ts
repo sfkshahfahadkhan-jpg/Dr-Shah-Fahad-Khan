@@ -1,33 +1,56 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
+import { initializeAuth, indexedDBLocalPersistence, browserPopupRedirectResolver, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { initializeFirestore, doc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-export const auth = getAuth(app);
+export const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+}, firebaseConfig.firestoreDatabaseId);
+
+export const auth = initializeAuth(app, {
+  persistence: indexedDBLocalPersistence,
+  popupRedirectResolver: browserPopupRedirectResolver,
+});
+
 export const googleProvider = new GoogleAuthProvider();
 
 async function testConnection() {
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
+    console.log("Firestore connection successful");
   } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error("Please check your Firebase configuration.");
+    console.error("Firestore initialization error:", error);
+    if (error instanceof Error) {
+      if (error.message.includes('the client is offline')) {
+        console.error("Please check your Firebase configuration or network.");
+      }
+      if (error.message.includes('not-found') || error.message.includes('NOT_FOUND')) {
+        console.warn("Database or connection document may not exist, but backend reached.");
+      }
     }
   }
 }
 testConnection();
 
 export const signInWithGoogle = async () => {
+  console.log("Attempting Google Sign In...");
   try {
-    return await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider);
+    console.log("Login successful:", result.user.email);
+    return result;
   } catch (error) {
-    console.error("Login Error:", error);
-    if (error instanceof Error && error.message.includes('auth/unauthorized-domain')) {
-      alert("This domain is not authorized in Firebase. Please add this domain to 'Authorized Domains' in the Firebase Console.");
+    console.error("Login Error Details:", error);
+    if (error instanceof Error) {
+      if (error.message.includes('auth/unauthorized-domain')) {
+        alert("Domain Unauthorized: Add " + window.location.hostname + " to Firebase Authorized Domains.");
+      } else if (error.message.includes('auth/popup-blocked')) {
+        alert("Popup Blocked: Please allow popups for this site in your browser settings.");
+      } else {
+        alert("Login failed: " + error.message);
+      }
     } else {
-      alert("Login failed. Please check your internet connection or Firebase settings.");
+      alert("An unknown error occurred during login.");
     }
     throw error;
   }
