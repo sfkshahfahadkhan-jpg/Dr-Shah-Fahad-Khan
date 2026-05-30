@@ -1,6 +1,8 @@
 {
-  "name": "Shah Fahad Khan Academy",
-  "description": "Premium educational interactive assessments for Shah Fahad Khan Academy students.",
+  "name": "Dr. Shah Fahad Khan Academy",
+  "description": "Global-Elite Cinematic Educational Platform of Dr. Shah Fahad Khan - World-Class Medical and Academic Educator.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
