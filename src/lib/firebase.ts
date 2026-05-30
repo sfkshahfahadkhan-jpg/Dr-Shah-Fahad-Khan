@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { initializeAuth, indexedDBLocalPersistence, browserPopupRedirectResolver, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { initializeAuth, indexedDBLocalPersistence, browserPopupRedirectResolver, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { initializeFirestore, doc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
@@ -30,28 +30,76 @@ async function testConnection() {
       }
     }
   }
+  
+  // Handle any pending redirect login result quietly
+  try {
+    const redirectResult = await getRedirectResult(auth);
+    if (redirectResult) {
+      console.log("Redirect sign-in successful:", redirectResult.user.email);
+    }
+  } catch (redirectError) {
+    console.error("Pending redirect result error or code:", redirectError);
+  }
 }
 testConnection();
 
+let isSigningIn = false;
+
 export const signInWithGoogle = async () => {
+  if (isSigningIn) {
+    console.warn("Sign-in already in progress, avoiding duplicate trigger.");
+    return null;
+  }
+  isSigningIn = true;
   console.log("Attempting Google Sign In...");
   try {
     const result = await signInWithPopup(auth, googleProvider);
     console.log("Login successful:", result.user.email);
+    isSigningIn = false;
     return result;
-  } catch (error) {
-    console.error("Login Error Details:", error);
-    if (error instanceof Error) {
-      if (error.message.includes('auth/unauthorized-domain')) {
-        alert("Domain Unauthorized: Add " + window.location.hostname + " to Firebase Authorized Domains.");
-      } else if (error.message.includes('auth/popup-blocked')) {
-        alert("Popup Blocked: Please allow popups for this site in your browser settings.");
-      } else {
-        alert("Login failed: " + error.message);
-      }
-    } else {
-      alert("An unknown error occurred during login.");
+  } catch (error: any) {
+    isSigningIn = false;
+    const errorCode = error?.code || '';
+    const errorMessage = error?.message || '';
+
+    // Gentle handling for user closure and cancelled popup request
+    if (
+      errorCode === 'auth/popup-closed-by-user' ||
+      errorMessage.includes('popup-closed-by-user') ||
+      errorCode === 'auth/cancelled-popup-request' ||
+      errorMessage.includes('cancelled-popup-request')
+    ) {
+      console.log("Sign-in popup closed or cancelled by user. Standard flow aborted gently.");
+      return null;
     }
-    throw error;
+
+    // Gentle handling for blocked popups - fallback nicely to redirect
+    if (
+      errorCode === 'auth/popup-blocked' ||
+      errorMessage.includes('popup-blocked')
+    ) {
+      console.warn("Popup blocked by user browser. Switching silently to Redirect Sign-In...");
+      try {
+        await signInWithRedirect(auth, googleProvider);
+      } catch (redirectError) {
+        console.error("Redirect fallback failed:", redirectError);
+      }
+      return null;
+    }
+
+    // Now for actual unexpected system/auth errors we log and handle
+    console.error("Unexpected Login Error:", error);
+    if (errorMessage.includes('auth/unauthorized-domain')) {
+      alert("Domain Unauthorized: Add " + window.location.hostname + " to Firebase Authorized Domains.");
+    } else {
+      console.log("Unknown popup error. Attempting silent fallback to Redirect mode...");
+      try {
+        await signInWithRedirect(auth, googleProvider);
+      } catch (redirectErr) {
+        console.error("Redirect fallback failed:", redirectErr);
+        alert("Login failed: " + errorMessage);
+      }
+    }
+    return null;
   }
 };
