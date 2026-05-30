@@ -4,19 +4,225 @@
 @theme {
   --font-serif: "Crimson Pro", serif;
   --font-sans: "Inter", sans-serif;
-  --color-brand-green: #1d442e;
+  --color-brand-green: #e8a223; /* Map green to gold or appropriate premium secondary */
   --color-brand-gold: #e8a223;
-  --color-brand-green-hover: #2b6142;
-  --color-brand-gold-pale: #fdf5e6;
+  --color-brand-green-hover: #f1b23e;
+  --color-brand-gold-pale: #1e1b12;
   
-  --color-sfk-green-dark: #1d442e;
-  --color-sfk-green-mid: #2b6142;
+  --color-sfk-green-dark: #070c14;
+  --color-sfk-green-mid: #0d1525;
   --color-sfk-gold: #e8a223;
-  --color-sfk-cream: #fdf5e6;
+  --color-sfk-cream: #030712;
 }
 
 @variant dark (&:where(.dark, .dark *));
 
+html, body, #root {
+  background-color: #030712 !important;
+  color: #f1f5f9 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  min-height: 100vh !important;
+  position: relative;
+}
+
+/* Premium Cinematic Design System Global Overrides */
+html, body, #root, .dark {
+  background-color: #030712 !important;
+}
+
+/* Glassmorphism overhauls: Expensive-looking frosted acrylic layers */
+.bg-white,
+.bg-slate-50,
+.bg-slate-100,
+.bg-slate-200,
+.bg-slate-50\/50,
+.dark .bg-white,
+.dark .bg-slate-50,
+.dark .bg-slate-100,
+.dark .bg-slate-200 {
+  background-color: rgba(6, 11, 25, 0.6) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(232, 162, 35, 0.1) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Interactive Card Hovers: Sleek glow transitions */
+.premium-card {
+  position: relative;
+  background: rgba(6, 11, 25, 0.6) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(232, 162, 35, 0.08) !important;
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(to bottom, rgba(232, 162, 35, 0.2), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(232, 162, 35, 0.25) !important;
+  box-shadow: 0 20px 40px -15px rgba(232, 162, 35, 0.08), 0 0 30px rgba(232, 162, 35, 0.04) !important;
+}
+
+.premium-card:hover::before {
+  opacity: 1;
+}
+
+/* Premium Buttons */
+.premium-btn-primary {
+  background: linear-gradient(135deg, #e8a223, #f1b23e) !important;
+  color: #030712 !important;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(232, 162, 35, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.premium-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232, 162, 35, 0.35);
+  filter: brightness(1.05);
+}
+
+/* Ambient lighting layers */
+.ambient-glow-yellow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(232, 162, 35, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+.ambient-glow-indigo {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+/* Star/Dust particles animation background */
+.dust-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #eee, transparent),
+    radial-gradient(1.5px 1.5px at 40px 70px, rgba(232,162,35,0.4), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(2px 2px at 150px 120px, rgba(99,102,241,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 220px 180px, #eee, transparent);
+  background-size: 300px 300px;
+  opacity: 0.25;
+  animation: bgScroll 120s linear infinite;
+}
+
+@keyframes bgScroll {
+  from { background-position: 0 0; }
+  to { background-position: 300px 600px; }
+}
+
+/* Premium Divider with Center Gold Spot */
+.premium-divider {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(232, 162, 35, 0.2) 20%, rgba(232, 162, 35, 0.4) 50%, rgba(232, 162, 35, 0.2) 80%, transparent);
+}
+.premium-divider::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #e8a223;
+  box-shadow: 0 0 10px #e8a223;
+}
+
+/* Overriding white margins, border margins and light gray triggers */
+.border,
+.border-2,
+.border-slate-50,
+.border-slate-100,
+.border-slate-200,
+.border-slate-300,
+.border-slate-700,
+.border-slate-800,
+.border-white,
+.dark .border-slate-50,
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-800 {
+  border-color: rgba(232, 162, 35, 0.1) !important;
+}
+
+/* Global Typography Correction to prevent light theme dark-grey low contrast text */
+.text-slate-800,
+.text-slate-700,
+.text-slate-600,
+.text-slate-500,
+.dark .text-slate-800,
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+.text-slate-950,
+.text-slate-900 {
+  color: #f8fafc !important;
+}
+
+/* Elite Gold Accents */
+.text-brand-green,
+.dark .text-brand-green {
+  color: #e8a223 !important;
+}
+
+/* Standard visual list structures */
 .heading-serif {
   font-family: var(--font-serif);
+}
+
+/* Beautiful scrollbar mechanics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+  border: 2px solid #030712;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e8a223;
 }

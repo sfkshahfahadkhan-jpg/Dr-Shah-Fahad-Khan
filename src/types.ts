@@ -18,7 +18,7 @@ export interface QuizSubmission {
   flaggedQuestions?: number[];
 }
 
-export type QuizState = 'welcome' | 'register' | 'quiz' | 'results' | 'admin' | 'performance' | 'leaderboard' | 'interview-prep' | 'academic-library' | 'practice-bank' | 'portfolio' | 'video-lectures' | 'mcq-banks' | 'reasoning';
+export type QuizState = 'welcome' | 'register' | 'quiz' | 'results' | 'admin' | 'performance' | 'leaderboard' | 'interview-prep' | 'academic-library' | 'practice-bank' | 'portfolio' | 'video-lectures' | 'mcq-banks' | 'reasoning' | 'aku-past-papers' | 'subject-chemistry' | 'subject-biology' | 'subject-physics' | 'subject-reasoning';
 
 export interface UserProgress {
   currentQuestionIndex: number;
