@@ -85,7 +85,11 @@ import {
   ChevronLeft,
   AlertCircle,
   X,
-  ArrowDownToLine
+  ArrowDownToLine,
+  ChevronDown,
+  Menu,
+  MessageSquare,
+  Instagram
 } from 'lucide-react';
 import { 
   BarChart as ReBarChart, 
@@ -121,13 +125,21 @@ import { auth, db, signInWithGoogle } from './lib/firebase';
 import { Question, QuizState, UserProgress, QuizSubmission, StudentProfile, AccessCode } from './types';
 import { quizRegistry } from './quizRegistry';
 
+
 import founderImage from './assets/images/regenerated_image_1778922687893.jpg';
 import clinicalImage from './assets/images/regenerated_image_1778922486683.jpg';
 
-console.log('Founder Image Path:', founderImage);
-console.log('Clinical Image Path:', clinicalImage);
-
 import { Scale } from 'lucide-react';
+
+// Cinematic Luxury Modular Redesign components
+import { HeroSection } from './components/HeroSection';
+import { TrustAndMedia } from './components/TrustAndMedia';
+import { WhyChooseUs } from './components/WhyChooseUs';
+import { FeaturedCourses } from './components/FeaturedCourses';
+import { RoadmapAndTimeline } from './components/RoadmapAndTimeline';
+import { AchievementsCarousel } from './components/AchievementsCarousel';
+import { ClinicalAuthority } from './components/ClinicalAuthority';
+import { FAQAndMetrics } from './components/FAQAndMetrics';
 
 
 
@@ -427,6 +439,8 @@ import { MIXED_SUBJECTS_DATA } from './data/mixed_subjects';
 
 export default function App() {
   const [state, setState] = useState<QuizState>('welcome');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [learningDropdownOpen, setLearningDropdownOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [studentInfo, setStudentInfo] = useState<StudentProfile | null>(null);
   const [activeSection, setActiveSection] = useState<Chapter | null>(null);
@@ -585,12 +599,15 @@ export default function App() {
     accuracy: number;
     prestige: number;
   }[]>([]);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('sfk-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    }
-    return 'light';
-  });
+  const [theme] = useState<'dark'>('dark');
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const isPremiumActive = useMemo(() => {
@@ -1427,57 +1444,125 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-sfk-cream dark:bg-slate-950 flex items-center justify-center transition-colors">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-sfk-green-dark"></div>
+      <div className="min-h-screen bg-[#030712] flex items-center justify-center transition-colors">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-gold"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans selection:bg-brand-gold/20 relative overflow-x-hidden transition-colors duration-300">
-      <header className="fixed top-0 left-0 right-0 z-[100] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 h-16 md:h-24 flex items-center px-4 md:px-12 transition-all shadow-sm">
-        <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
+    <div className="dark min-h-screen bg-[#030712] text-slate-100 font-sans selection:bg-brand-gold/20 relative overflow-x-hidden transition-colors duration-300">
+      {/* Cinematic Star Dust underlay */}
+      <div className="dust-container pb-96" />
+
+      {/* Layered cinematic glow spots */}
+      <div className="absolute top-0 left-12 w-[600px] h-[600px] bg-gradient-to-r from-amber-500/10 via-amber-600/5 to-transparent rounded-full blur-[120px] pointer-events-none opacity-60 mix-blend-screen" />
+      <div className="absolute top-1/4 right-[5%] w-[700px] h-[700px] bg-gradient-to-l from-indigo-500/10 via-indigo-600/5 to-transparent rounded-full blur-[140px] pointer-events-none opacity-50 mix-blend-screen" />
+      <div className="absolute top-[55%] left-[5%] w-[650px] h-[650px] bg-gradient-to-tr from-brand-gold/10 via-amber-500/3 to-transparent rounded-full blur-[130px] pointer-events-none opacity-60 mix-blend-screen" />
+      <div className="absolute bottom-[10%] right-[10%] w-[800px] h-[800px] bg-gradient-to-br from-indigo-950/20 via-amber-500/5 to-transparent rounded-full blur-[160px] pointer-events-none opacity-50" />
+
+      <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${isScrolled ? 'bg-slate-950/85 backdrop-blur-2xl border-b border-slate-900 shadow-2xl h-16 md:h-20' : 'bg-transparent border-b border-transparent h-20 md:h-28'} flex items-center px-4 md:px-12`}>
+        <div className="flex items-center justify-between w-full max-w-7xl mx-auto gap-4">
           <button 
-            onClick={() => setState('welcome')}
+            onClick={() => { setState('welcome'); setMobileMenuOpen(false); }}
             className="flex items-center gap-2 md:gap-4 group hover:scale-105 transition-all outline-none flex-shrink-0"
           >
-            <div className="p-1 md:p-3 bg-brand-green text-brand-gold rounded-lg md:rounded-2xl shadow-lg group-hover:rotate-12 transition-all">
+            <div className="p-1 md:p-3 bg-slate-900 border border-slate-800 text-brand-gold rounded-lg md:rounded-2xl shadow-lg group-hover:rotate-12 transition-all">
                <GraduationCap className="w-5 h-5 md:w-8 md:h-8" />
             </div>
             <div className="flex flex-col text-left">
-              <h1 className="font-black text-sm md:text-3xl text-brand-green dark:text-brand-gold tracking-tight md:tracking-tighter uppercase leading-none truncate max-w-[120px] sm:max-w-none">
+              <h1 className="font-italic heading-serif font-black text-xs md:text-xl xl:text-2xl text-brand-gold tracking-tight md:tracking-normal uppercase leading-none truncate max-w-[120px] sm:max-w-none">
                 {siteConfig.academyName || 'SFK Elite Academy'}
               </h1>
-              <span className="text-[7px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 tracking-[0.1em] md:tracking-[0.3em] uppercase">Elite Excellence</span>
+              <span className="text-[7px] md:text-[9px] font-black text-slate-400 tracking-[0.1em] md:tracking-[0.3em] uppercase">Elite Excellence</span>
             </div>
           </button>
 
-          <div className="flex items-center gap-2 md:gap-6">
+          {/* Desktop Navigation Row */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-4 bg-slate-950/60 px-4 py-2 rounded-full border border-slate-900">
+            <button 
+              onClick={() => { setState('welcome'); }}
+              className={`px-3 py-1.5 transition-all duration-200 text-xs font-black uppercase tracking-wider rounded-lg ${state === 'welcome' ? 'text-brand-gold bg-slate-900 shadow-sm border border-slate-800' : 'text-slate-400 hover:text-brand-gold'}`}
+            >
+              Home
+            </button>
+            <button 
+              onClick={() => { setState('aku-past-papers'); }}
+              className={`px-3 py-1.5 transition-all duration-200 text-xs font-black uppercase tracking-wider rounded-lg ${state === 'aku-past-papers' ? 'text-brand-gold bg-slate-900 shadow-sm border border-slate-800' : 'text-slate-400 hover:text-brand-gold'}`}
+            >
+              AKU Past Papers
+            </button>
+            
+            {/* Hover dropdown */}
+            <div className="relative group py-1">
+              <button className="flex items-center gap-1 px-3 py-1.5 transition-all duration-200 text-xs font-black uppercase tracking-wider text-slate-400 hover:text-brand-gold">
+                Learning Section <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-52 bg-slate-950 border border-slate-900 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 border-t-2 border-t-brand-gold">
+                <button 
+                  onClick={() => { setState('subject-chemistry'); setSelectedSubject('chemistry'); setBrowseStep('chapter'); setSelectedGrade(null); }}
+                  className="w-full text-left px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                >
+                  Chemistry
+                </button>
+                <button 
+                  onClick={() => { setState('subject-biology'); setSelectedSubject('biology'); setBrowseStep('chapter'); setSelectedGrade(null); }}
+                  className="w-full text-left px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                >
+                  Biology
+                </button>
+                <button 
+                  onClick={() => { setState('subject-physics'); setSelectedSubject('physics'); setBrowseStep('chapter'); setSelectedGrade(null); }}
+                  className="w-full text-left px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                >
+                  Physics
+                </button>
+                <button 
+                  onClick={() => { setState('subject-reasoning'); setSelectedSubject('reasoning'); setBrowseStep('chapter'); setSelectedGrade(null); }}
+                  className="w-full text-left px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                >
+                  Reasoning
+                </button>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => { setState('portfolio'); }}
+              className={`px-3 py-1.5 transition-all duration-200 text-xs font-black uppercase tracking-wider rounded-lg ${state === 'portfolio' ? 'text-brand-gold bg-slate-900 shadow-sm border border-slate-800' : 'text-slate-400 hover:text-brand-gold'}`}
+            >
+              About
+            </button>
+          </nav>
+
+          <div className="flex items-center gap-2 md:gap-6 flex-shrink-0">
+            {/* Free Sign Up Now CTA in Header for logged out users */}
+            {!currentUser && (
+              <button 
+                onClick={() => { console.log("Login initiated via header CTA..."); signInWithGoogle(); }}
+                className="hidden sm:inline-flex items-center gap-1.5 bg-gradient-to-r from-brand-gold via-amber-400 to-brand-gold text-slate-950 border-2 border-brand-gold/60 hover:scale-105 active:scale-95 px-3 md:px-5 py-2 rounded-xl transition-all shadow-md text-[10px] md:text-xs font-black uppercase tracking-widest hover:shadow-brand-gold/20 leading-none"
+              >
+                <Sparkles className="w-3.5 h-3.5" /> Sign Up Free
+              </button>
+            )}
+
             {isAdminUser && (
               <button 
                 onClick={() => setState('admin')}
-                className="p-1.5 md:p-3 bg-white dark:bg-slate-900 hover:bg-rose-50 dark:hover:bg-rose-900/10 rounded-lg md:rounded-2xl transition-all text-rose-500 group h-9 w-12 md:h-12 md:w-auto flex items-center justify-center border border-slate-100 dark:border-slate-700 shadow-sm"
+                className="p-1.5 md:p-3 bg-slate-950 border border-slate-900 hover:bg-slate-900 text-rose-400 rounded-lg md:rounded-2xl transition-all group h-9 w-12 md:h-12 md:w-auto flex items-center justify-center shadow-sm"
               >
                 <span className="hidden md:inline font-black text-[10px] uppercase tracking-widest mr-2">Admin</span>
                 <ShieldCheck className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             )}
-            <button 
-              className="p-1.5 md:p-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg md:rounded-2xl transition-all text-brand-green dark:text-brand-gold group h-9 w-9 md:h-12 md:w-12 flex items-center justify-center border border-slate-100 dark:border-slate-700 shadow-sm"
-              onClick={() => setTheme(prev => prev === 'dark' ? 'light' : 'dark')}
-            >
-              {theme === 'dark' ? <Sun className="w-4 h-4 md:w-6 md:h-6" /> : <Moon className="w-4 h-4 md:w-6 md:h-6" />}
-            </button>
-            
             {currentUser ? (
-              <div className="flex items-center gap-2 md:gap-4 bg-slate-50 dark:bg-slate-800/50 p-1 md:p-1.5 pl-2 md:pl-5 rounded-lg md:rounded-2xl border border-slate-100 dark:border-slate-700">
+              <div className="flex items-center gap-2 md:gap-4 bg-slate-900 border border-slate-800 p-1.5 pl-4 rounded-2xl">
                 <div className="hidden sm:flex flex-col text-right">
-                  <span className="text-[10px] md:text-[12px] font-black text-brand-green dark:text-brand-gold leading-none">{studentInfo?.name || currentUser.displayName}</span>
-                  <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{currentUser.email?.split('@')[0]}</span>
+                  <span className="text-[10px] md:text-[12px] font-black text-brand-gold leading-none">{studentInfo?.name || currentUser.displayName}</span>
+                  <span className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{currentUser.email?.split('@')[0]}</span>
                 </div>
                 <button 
                   onClick={() => { console.log("Signing out..."); signOut(auth); }}
-                  className="p-2 md:p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700 text-red-500 rounded-lg md:rounded-xl transition-all hover:bg-red-500 hover:text-white shadow-sm"
+                  className="p-2 md:p-3 bg-red-950/20 hover:bg-red-500 hover:text-white border border-red-900/30 text-rose-500 rounded-xl transition-all"
                 >
                   <LogOut className="w-4 h-4 md:w-5 md:h-5" />
                 </button>
@@ -1485,183 +1570,196 @@ export default function App() {
             ) : (
               <button 
                 onClick={() => { console.log("Login initiated..."); signInWithGoogle(); }}
-                className="bg-brand-green text-brand-gold px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl whitespace-nowrap"
+                className="bg-brand-gold text-slate-950 px-5 py-2.5 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-amber-500/10 whitespace-nowrap"
               >
                 Log In
               </button>
             )}
+
+            {/* Mobile Nav Menu Button */}
+            <button 
+              onClick={() => setMobileMenuOpen(prev => !prev)}
+              className="lg:hidden p-1.5 md:p-3 rounded-2xl border border-slate-800 text-slate-300 bg-slate-900 h-9 w-9 md:h-12 md:w-12 flex items-center justify-center shadow-sm hover:bg-slate-850 transition-colors"
+            >
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
           </div>
         </div>
+
+        {/* Collapsible Mobile Navigation Drawer */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-16 md:top-24 left-0 right-0 z-[90] bg-slate-950 border-b border-slate-900 lg:hidden overflow-hidden shadow-2xl flex flex-col p-6 gap-4"
+            >
+              <button 
+                onClick={() => { setState('welcome'); setMobileMenuOpen(false); }}
+                className={`w-full py-3 px-6 rounded-2xl text-left font-black text-xs uppercase tracking-wider ${state === 'welcome' ? 'bg-slate-900 text-brand-gold' : 'text-slate-300'}`}
+              >
+                Home
+              </button>
+              <button 
+                onClick={() => { setState('aku-past-papers'); setMobileMenuOpen(false); }}
+                className={`w-full py-3 px-6 rounded-2xl text-left font-black text-xs uppercase tracking-wider ${state === 'aku-past-papers' ? 'bg-slate-900 text-brand-gold' : 'text-slate-300'}`}
+              >
+                AKU Past Papers
+              </button>
+
+              <div className="border-t border-slate-900 my-1 pt-3">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-6 block mb-2">Subject Rooms</span>
+                <div className="grid grid-cols-2 gap-2 pl-4">
+                  <button 
+                    onClick={() => { setState('subject-chemistry'); setSelectedSubject('chemistry'); setBrowseStep('chapter'); setSelectedGrade(null); setMobileMenuOpen(false); }}
+                    className="py-2.5 px-4 rounded-xl text-left text-[11px] font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                  >
+                    Chemistry
+                  </button>
+                  <button 
+                    onClick={() => { setState('subject-biology'); setSelectedSubject('biology'); setBrowseStep('chapter'); setSelectedGrade(null); setMobileMenuOpen(false); }}
+                    className="py-2.5 px-4 rounded-xl text-left text-[11px] font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                  >
+                    Biology
+                  </button>
+                  <button 
+                    onClick={() => { setState('subject-physics'); setSelectedSubject('physics'); setBrowseStep('chapter'); setSelectedGrade(null); setMobileMenuOpen(false); }}
+                    className="py-2.5 px-4 rounded-xl text-left text-[11px] font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                  >
+                    Physics
+                  </button>
+                  <button 
+                    onClick={() => { setState('subject-reasoning'); setSelectedSubject('reasoning'); setBrowseStep('chapter'); setSelectedGrade(null); setMobileMenuOpen(false); }}
+                    className="py-2.5 px-4 rounded-xl text-left text-[11px] font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-brand-gold transition-all"
+                  >
+                    Reasoning
+                  </button>
+                </div>
+              </div>
+
+              <button 
+                onClick={() => { setState('portfolio'); setMobileMenuOpen(false); }}
+                className={`w-full py-3 px-6 rounded-2xl text-left font-black text-xs uppercase tracking-wider ${state === 'portfolio' ? 'bg-slate-900 text-brand-gold' : 'text-slate-300'}`}
+              >
+                About
+              </button>
+
+              {!currentUser && (
+                <button 
+                  onClick={() => { setMobileMenuOpen(false); signInWithGoogle(); }}
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-brand-gold to-yellow-500 text-slate-950 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl mt-3"
+                >
+                  <Sparkles className="w-4 h-4" /> Sign Up Free Now
+                </button>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
 
       <div className="max-w-7xl mx-auto px-6 mb-8 pt-40">
-        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 backdrop-blur-sm bg-white/30 dark:bg-slate-900/30 w-fit px-4 py-2 rounded-full border border-slate-100 dark:border-slate-800">
-          <button onClick={() => setState('welcome')} className="hover:text-brand-green transition-colors">SFK Home</button>
+        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 backdrop-blur-sm bg-slate-950/40 w-fit px-4 py-2 rounded-full border border-slate-900">
+          <button onClick={() => setState('welcome')} className="hover:text-brand-gold transition-colors">SFK Home</button>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-brand-green dark:text-brand-gold">{state === 'welcome' ? 'Excellence Hub' : state.replace('-', ' ')}</span>
+          <span className="text-brand-gold">{state === 'welcome' ? 'Excellence Hub' : state === 'aku-past-papers' ? 'AKU Past Papers' : state.startsWith('subject-') ? `${state.replace('subject-', '')} Room` : state.replace('-', ' ')}</span>
         </div>
       </div>
 
       <main className="pb-24 px-6 max-w-7xl mx-auto relative z-10">
         <AnimatePresence mode="wait">
           {state === 'welcome' && (
-            <motion.div key="welcome" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="space-y-24">
+            <motion.div key="welcome" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="space-y-32 bg-slate-950 text-white">
               
-              {/* Massive Hero Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div className="space-y-10">
-                  <div className="flex flex-wrap items-center gap-4">
-                    <motion.div 
-                       initial={{ x: -20, opacity: 0 }}
-                       animate={{ x: 0, opacity: 1 }}
-                       transition={{ delay: 0.2 }}
-                       className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-green text-brand-gold rounded-full font-black text-[10px] uppercase tracking-[0.2em] shadow-2xl"
-                    >
-                      <Sparkles className="w-4 h-4 animate-pulse" />
-                      {siteConfig.academyName || 'SFK Elite Academy'}
-                    </motion.div>
-                    {isAdminUser && (
-                      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-rose-500 text-white rounded-full font-black text-[10px] uppercase tracking-[0.2em] shadow-lg">
-                        <ShieldCheck className="w-4 h-4" />
-                        Admin Access
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h1 className="heading-serif text-5xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-9xl font-black text-brand-green dark:text-brand-gold tracking-tighter leading-[0.85] md:leading-[0.8] overflow-hidden">
-                      <motion.span 
-                        initial={{ y: "100%" }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 0.8, ease: "circOut" }}
-                        className="block break-words whitespace-normal"
-                      >
-                        {siteConfig.heroHeading1}
-                      </motion.span>
-                      <motion.span 
-                        initial={{ y: "100%" }}
-                        animate={{ y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.8, ease: "circOut" }}
-                        className="block text-slate-800 dark:text-white break-words whitespace-normal"
-                      >
-                        {siteConfig.heroHeading2}
-                      </motion.span>
-                    </h1>
-                  </div>
+              {/* 1. Cinematic Luxury Spotlight Hero Section */}
+              <HeroSection 
+                academyName={siteConfig.academyName || 'SFK ELITE ACADEMY'}
+                heroHeading1={siteConfig.heroTitle || 'Transforming Future'}
+                heroHeading2={siteConfig.heroSubtitle || 'Doctors Worldwide'}
+                missionStatement={siteConfig.missionStatement || 'Elite academic preparation specifically tailored for global O/A Level applicants, rigorous MDCAT, and high-tier AKU entry exams.'}
+                founderImage={founderImage}
+                onExploreCourses={() => {
+                  document.getElementById('featured-courses-id')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onConsultation={() => {
+                  window.open("https://wa.me/923492124667", "_blank");
+                }}
+                onJoinCrashCourse={() => {
+                  // Direct smooth scroll to Premium key code entry below
+                  document.getElementById('premium-unlock-id')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onOpenArchives={() => setState('academic-library')}
+                onOpenAnalytics={() => {
+                  loadPersonalStats();
+                  setState('performance');
+                }}
+                currentUser={currentUser}
+                isAdminUser={isAdminUser}
+              />
 
-                  <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl leading-relaxed">
-                    {siteConfig.missionStatement}
-                  </p>
-
-                  <div className="flex flex-wrap gap-4 mt-8 md:mt-0">
-                    <button 
-                      onClick={() => setState('academic-library')}
-                      className="flex-1 md:flex-none px-6 md:px-8 py-4 md:py-5 bg-white dark:bg-slate-800 text-slate-800 dark:text-white border-2 border-slate-100 dark:border-slate-700 rounded-2xl md:rounded-[24px] font-black text-[10px] md:text-xs uppercase tracking-[0.2em] hover:border-brand-gold transition-all flex items-center justify-center gap-3"
-                    >
-                      <BookOpen className="w-4 h-4 md:w-5 md:h-5" />
-                      Archives
-                    </button>
-                    <button 
-                      onClick={() => { loadPersonalStats(); setState('performance'); }}
-                      className="flex-1 md:flex-none px-6 md:px-8 py-4 md:py-5 bg-brand-gold text-brand-green rounded-2xl md:rounded-[24px] font-black text-[10px] md:text-xs uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center justify-center gap-3"
-                    >
-                      <TrendingUp className="w-4 h-4 md:w-5 md:h-5" />
-                      Scholarly Analytics
-                    </button>
-                  </div>
-
-                </div>
-
-                <div className="relative group">
-                  <motion.div 
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="aspect-[4/5] bg-brand-gold/10 dark:bg-brand-gold/5 rounded-[60px] border-4 border-brand-green/20 dark:border-brand-gold/30 overflow-hidden relative flex flex-col group/img"
-                  >
-                    <img 
-                      src={clinicalImage}
-                      alt="Academy Institutional Focus"
-                      className="absolute inset-0 w-full h-full object-cover grayscale brightness-90 group-hover/img:grayscale-0 group-hover/img:scale-105 transition-all duration-1000"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 via-brand-green/20 to-transparent pointer-events-none" />
-                    
-                    <div className="relative z-20 flex-1 flex flex-col justify-end p-8">
-                      <div className="space-y-2">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-gold text-brand-green rounded-full font-black text-[9px] uppercase tracking-widest shadow-xl">
-                          Certified Excellence
-                        </div>
-                        <h3 className="text-3xl font-black text-brand-gold heading-serif leading-tight">
-                          Clinical <br/>Mastery
-                        </h3>
-                        <p className="text-white/70 font-bold text-xs max-w-[200px]">Institutional grade preparation for the next generation of physicians.</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
+              {/* 2. Trusted By & Media Center Showcase */}
+              <div id="trusted-media-id">
+                <TrustAndMedia 
+                  onOpenPlaylist={() => window.open(siteConfig.videoUrl || VIDEO_PLAYLIST.url, '_blank')}
+                  videoUrl={siteConfig.videoUrl || VIDEO_PLAYLIST.url}
+                  videoTitle={siteConfig.videoTitle || VIDEO_PLAYLIST.title}
+                />
               </div>
 
-              {/* Assessment Tracks Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <button 
-                  onClick={() => setState('portfolio')}
-                  className="p-10 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[48px] hover:border-brand-gold hover:shadow-2xl transition-all flex flex-col items-start group text-left relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
-                  <div className="p-5 bg-indigo-500/10 text-indigo-500 rounded-3xl group-hover:scale-110 transition-all mb-8">
-                    <UserIcon className="w-10 h-10" />
-                  </div>
-                  <h3 className="font-black text-2xl text-slate-800 dark:text-white uppercase tracking-tighter leading-none mb-4">Founder <br/>Profile</h3>
-                  <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed mb-6">Explore the academic journey and expertise of Dr. Shah Fahad Khan.</p>
-                  <div className="mt-auto flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest">
-                    View Portfolio <ArrowRight className="w-4 h-4" />
-                  </div>
-                </button>
+              {/* 3. The Cognitive Pedagogy / Why Students Choose Us */}
+              <WhyChooseUs />
 
-                <button 
-                  onClick={() => setState('video-lectures')}
-                  className="p-10 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[48px] hover:border-brand-gold hover:shadow-2xl transition-all flex flex-col items-start group text-left relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
-                  <div className="p-5 bg-red-500/10 text-red-500 rounded-3xl group-hover:scale-110 transition-all mb-8">
-                    <Youtube className="w-10 h-10" />
-                  </div>
-                  <h3 className="font-black text-2xl text-slate-800 dark:text-white uppercase tracking-tighter leading-none mb-4">Video <br/>Lectures</h3>
-                  <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed mb-6">Direct access to the elite SFK lecture series on YouTube.</p>
-                  <div className="mt-auto flex items-center gap-2 text-red-500 font-black text-[10px] uppercase tracking-widest">
-                    Open Playlist <ArrowRight className="w-4 h-4" />
-                  </div>
-                </button>
-
-                <button 
-                  onClick={() => setState('academic-library')}
-                  className="p-10 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[48px] hover:border-brand-gold hover:shadow-2xl transition-all flex flex-col items-start group text-left relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
-                  <div className="p-5 bg-brand-gold/10 text-brand-gold rounded-3xl group-hover:scale-110 transition-all mb-8">
-                    <BookOpen className="w-10 h-10" />
-                  </div>
-                  <h3 className="font-black text-2xl text-slate-800 dark:text-white uppercase tracking-tighter leading-none mb-4">Academic <br/>Library</h3>
-                  <p className="text-slate-500 dark:text-slate-400 font-bold text-sm leading-relaxed mb-6">Subject specific PDFs, curriculum guides, and study roadmaps.</p>
-                  <div className="mt-auto flex items-center gap-2 text-brand-gold font-black text-[10px] uppercase tracking-widest">
-                    Access Archive <ArrowRight className="w-4 h-4" />
-                  </div>
-                </button>
+              {/* 4. Alt Academy-inspired Interactive Course Grid */}
+              <div id="featured-courses-id">
+                <FeaturedCourses 
+                  onSelectRoute={(route) => {
+                    if (route === 'video-lectures') {
+                      setState('video-lectures');
+                    } else if (route === 'academic-library') {
+                      setState('academic-library');
+                    } else if (route === 'aku-past-papers') {
+                      setState('aku-past-papers');
+                    } else if (route === 'reasoning') {
+                      setState('reasoning');
+                    } else if (route === 'mcq-banks') {
+                      setState('mcq-banks');
+                      setBrowseStep('subject');
+                    } else if (route === 'subject-chemistry') {
+                      // Navigate directly to Chemistry room
+                      setState('subject-chemistry');
+                    } else {
+                      setState(route as any);
+                    }
+                  }}
+                  isPremiumActive={isPremiumActive}
+                />
               </div>
 
-              {/* Mixed Subjects Section */}
+              {/* 5. Custom Cohort Roadmap and Academic Timeline */}
+              <RoadmapAndTimeline />
+
+              {/* 6. High-End Results Grid Panel / Student Achievements */}
+              <AchievementsCarousel />
+
+              {/* 7. Clinical Authority & founder Bio */}
+              <ClinicalAuthority 
+                founderBio={siteConfig.founderBio}
+                clinicalImage={clinicalImage}
+              />
+
+              {/* Mixed Subjects Section - Vetted Practice Suite */}
               {localQuizzes.some(q => q.subject === 'Mixed Subjects') && (
                 <div className="space-y-12">
-                   <div className="flex items-end justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-8">
+                   <div className="flex items-end justify-between border-b-2 border-slate-900 pb-8">
                       <div className="space-y-2">
-                         <span className="text-[10px] font-black text-brand-gold uppercase tracking-[0.3em]">Full Spectrum Mastery</span>
-                         <h2 className="heading-serif text-5xl font-black text-brand-green dark:text-brand-gold tracking-tight">Mixed Subject Drills</h2>
+                         <span className="text-[10px] font-black text-violet-400 uppercase tracking-[0.3em]">Full Spectrum Mastery</span>
+                         <h2 className="heading-font text-4xl font-black text-white tracking-tight font-sans">Composite Diagnostic Drills</h2>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="md:flex gap-2 hidden">
                         <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
-                        <span className="text-[10px] font-black uppercase text-blue-500 tracking-widest">Multi-Topic Exposure</span>
+                        <span className="text-[10px] font-black uppercase text-blue-400 tracking-widest leading-none">Global Adaptive Pool</span>
                       </div>
                    </div>
 
@@ -1670,33 +1768,33 @@ export default function App() {
                         <motion.div 
                           key={quiz.id} 
                           whileHover={{ y: -8, scale: 1.02 }}
-                          className="group relative p-10 bg-white dark:bg-slate-900 rounded-[56px] border-2 border-slate-50 dark:border-slate-800 hover:border-blue-500 transition-all shadow-xl hover:shadow-blue-500/10 overflow-hidden"
+                          className="group relative p-8 bg-slate-900/40 rounded-[36px] border border-slate-900 hover:border-blue-500/40 transition-all shadow-xl hover:shadow-blue-500/5 overflow-hidden"
                         >
-                          <div className={`absolute top-0 left-0 w-full h-2 bg-blue-500`} />
-                          <div className="mb-8 flex items-center justify-between">
-                            <div className="p-4 bg-blue-500/5 text-blue-500 rounded-[24px]">
-                              <Star className="w-8 h-8" />
+                          <div className={`absolute top-0 left-0 w-full h-1.5 bg-blue-500`} />
+                          <div className="mb-6 flex items-center justify-between">
+                            <div className="p-3 bg-blue-500/10 text-blue-400 rounded-2xl">
+                              <Star className="w-6 h-6" />
                             </div>
-                            <span className="px-3 py-1 bg-brand-green/10 text-brand-green rounded-full text-[9px] font-black uppercase tracking-widest">Composite Challenge</span>
+                            <span className="px-3 py-1 bg-slate-950/80 border border-slate-900 text-slate-400 rounded-full text-[9px] font-black uppercase tracking-widest">Composite Challenge</span>
                           </div>
-                          <h3 className="heading-serif text-3xl font-black text-slate-800 dark:text-white mb-3 group-hover:text-brand-green transition-colors">{quiz.title}</h3>
-                          <div className="flex gap-4 mb-8">
-                             <div className="flex items-center gap-1 text-[10px] font-black text-slate-400 uppercase tracking-widest"><BookOpen className="w-3 h-3" /> Mixed</div>
-                             <div className="flex items-center gap-1 text-[10px] font-black text-slate-400 uppercase tracking-widest"><Timer className="w-3 h-3" /> {quiz.timeLimit}m</div>
+                          <h3 className="text-2xl font-black text-white mb-3 group-hover:text-blue-400 transition-colors font-sans">{quiz.title}</h3>
+                          <div className="flex gap-4 mb-6">
+                             <div className="flex items-center gap-1 text-[10px] font-black text-slate-500 uppercase tracking-widest"><BookOpen className="w-3.5 h-3.5" /> Mixed</div>
+                             <div className="flex items-center gap-1 text-[10px] font-black text-slate-500 uppercase tracking-widest"><Clock className="w-3.5 h-3.5" /> {quiz.timeLimit}m</div>
                           </div>
                           <div className="flex flex-col gap-2">
-                            <button 
-                              onClick={() => startQuiz(quiz, 'exam')}
-                              className="w-full flex items-center justify-between px-8 py-5 bg-brand-green text-brand-gold rounded-[24px] font-black uppercase tracking-widest text-xs hover:bg-brand-gold hover:text-brand-green transition-all shadow-lg"
-                            >
-                              Exam Mode <ArrowRight className="w-4 h-4" />
-                            </button>
-                            <button 
-                              onClick={() => startQuiz(quiz, 'practice')}
-                              className="w-full flex items-center justify-between px-8 py-5 bg-slate-100 text-slate-500 rounded-[24px] font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all border border-slate-200"
-                            >
-                              Review Mode <ArrowRight className="w-4 h-4" />
-                            </button>
+                             <button 
+                               onClick={() => startQuiz(quiz, 'exam')}
+                               className="w-full flex items-center justify-between px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:from-cyan-400 hover:to-blue-500 transition-all shadow-md"
+                             >
+                               <span>Exam Mode</span> <ArrowRight className="w-4 h-4" />
+                             </button>
+                             <button 
+                               onClick={() => startQuiz(quiz, 'practice')}
+                               className="w-full flex items-center justify-between px-6 py-4 bg-slate-950 text-slate-400 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-900 hover:text-white transition-all border border-slate-900"
+                             >
+                               <span>Practice Mode</span> <ArrowRight className="w-4 h-4" />
+                             </button>
                           </div>
                         </motion.div>
                       ))}
@@ -1704,119 +1802,16 @@ export default function App() {
                 </div>
               )}
 
-              {/* AKU Past Papers Section */}
-              {localQuizzes.some(q => q.subject === 'AKU Past Papers') && (
-                <div className="space-y-12">
-                   <div className="flex items-end justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-8">
-                      <div className="space-y-2">
-                         <span className="text-[10px] font-black text-brand-gold uppercase tracking-[0.3em]">Institutional Archives</span>
-                         <h2 className="heading-serif text-5xl font-black text-brand-green dark:text-brand-gold tracking-tight">AKU Past Papers</h2>
-                      </div>
-                      <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-brand-gold animate-pulse" />
-                        <span className="text-[10px] font-black uppercase text-brand-gold tracking-widest">Official Modules</span>
-                      </div>
-                   </div>
+              {/* 8. Modern FAQ accordion and help desk support block */}
+              <FAQAndMetrics />
 
-                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {localQuizzes.filter(q => q.subject === 'AKU Past Papers').map((quiz) => (
-                        <motion.div 
-                          key={quiz.id} 
-                          whileHover={{ y: -8, scale: 1.02 }}
-                          className="group relative p-10 bg-white dark:bg-slate-900 rounded-[56px] border-2 border-slate-50 dark:border-slate-800 hover:border-brand-gold transition-all shadow-xl hover:shadow-brand-gold/10 overflow-hidden"
-                        >
-                          <div className={`absolute top-0 left-0 w-full h-2 bg-brand-gold`} />
-                          <div className="mb-8 flex items-center justify-between">
-                            <div className="p-4 bg-brand-gold/5 text-brand-gold rounded-[24px]">
-                              <Database className="w-8 h-8" />
-                            </div>
-                            <span className="px-3 py-1 bg-brand-green/10 text-brand-green rounded-full text-[9px] font-black uppercase tracking-widest">Premium Archive</span>
-                          </div>
-                          <h3 className="heading-serif text-3xl font-black text-slate-800 dark:text-white mb-3 group-hover:text-brand-green transition-colors">{quiz.title}</h3>
-                          <div className="flex gap-4 mb-8">
-                             <div className="flex items-center gap-1 text-[10px] font-black text-slate-400 uppercase tracking-widest"><BookOpen className="w-3 h-3" /> {quiz.subject}</div>
-                             <div className="flex items-center gap-1 text-[10px] font-black text-slate-400 uppercase tracking-widest"><Timer className="w-3 h-3" /> {quiz.timeLimit}m</div>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <button 
-                              onClick={() => startQuiz(quiz, 'exam')}
-                              className="w-full flex items-center justify-between px-8 py-5 bg-brand-green text-brand-gold rounded-[24px] font-black uppercase tracking-widest text-xs hover:bg-brand-gold hover:text-brand-green transition-all shadow-lg"
-                            >
-                              Exam Mode <ArrowRight className="w-4 h-4" />
-                            </button>
-                            <button 
-                              onClick={() => startQuiz(quiz, 'practice')}
-                              className="w-full flex items-center justify-between px-8 py-5 bg-slate-100 text-slate-500 rounded-[24px] font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all border border-slate-200"
-                            >
-                              Practice Mode <BookOpen className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </motion.div>
-                      ))}
-                   </div>
-                </div>
-              )}
+              {/* AKU Past Papers section removed from welcome view as it is now a separate page */}
 
-              {/* Assessment Tracks Section */}
-              <div className="space-y-12">
-                 <div className="flex items-end justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-8">
-                    <div className="space-y-2">
-                       <span className="text-[10px] font-black text-brand-gold uppercase tracking-[0.3em]">Evaluation Center</span>
-                       <h2 className="heading-serif text-5xl font-black text-brand-green dark:text-brand-gold tracking-tight">Practice Tracks</h2>
-                    </div>
-                 </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-                    <button 
-                      onClick={() => { setState('mcq-banks'); setBrowseStep('subject'); }}
-                      className="p-6 md:p-8 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[24px] md:rounded-[40px] hover:border-brand-green transition-all group flex flex-col items-start gap-4 md:gap-6 shadow-sm text-left"
-                    >
-                      <div className="p-4 md:p-6 bg-brand-green/10 text-brand-green rounded-xl md:rounded-3xl group-hover:rotate-12 transition-all">
-                        <LayoutGrid className="w-8 h-8 md:w-12 md:h-12" />
-                      </div>
-                      <div className="space-y-1 md:space-y-2">
-                        <h3 className="font-black text-xl md:text-3xl text-slate-800 dark:text-white tracking-widest flex items-center gap-3">
-                          MCQ BANKS <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </h3>
-                        <p className="text-slate-400 font-bold text-[9px] md:text-[12px] uppercase tracking-widest">Physics, Chemistry & Biology</p>
-                      </div>
-                    </button>
-
-                    <button 
-                      onClick={() => setState('practice-bank')}
-                      className="p-6 md:p-8 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[24px] md:rounded-[40px] hover:border-brand-gold transition-all group flex flex-col items-start gap-4 md:gap-6 shadow-sm text-left"
-                    >
-                      <div className="p-4 md:p-6 bg-brand-gold/10 text-brand-gold rounded-xl md:rounded-3xl group-hover:rotate-12 transition-all">
-                        <Flame className="w-8 h-8 md:w-12 md:h-12" />
-                      </div>
-                      <div className="space-y-1 md:space-y-2">
-                        <h3 className="font-black text-xl md:text-3xl text-slate-800 dark:text-white tracking-widest flex items-center gap-3">
-                          ELITE VAULT <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </h3>
-                        <p className="text-slate-400 font-bold text-[9px] md:text-[12px] uppercase tracking-widest">Past Exams & Archives</p>
-                      </div>
-                    </button>
-
-                    <button 
-                      onClick={() => { setState('reasoning'); setBrowseStep('subject'); }}
-                      className="p-6 md:p-8 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[24px] md:rounded-[40px] hover:border-brand-green transition-all group flex flex-col items-start gap-4 md:gap-6 shadow-sm text-left"
-                    >
-                      <div className="p-4 md:p-6 bg-brand-green/10 text-brand-green rounded-xl md:rounded-3xl group-hover:rotate-12 transition-all">
-                        <Scale className="w-8 h-8 md:w-12 md:h-12" />
-                      </div>
-                      <div className="space-y-1 md:space-y-2">
-                        <h3 className="font-black text-xl md:text-3xl text-slate-800 dark:text-white tracking-widest flex items-center gap-3">
-                          REASONING <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </h3>
-                        <p className="text-slate-400 font-bold text-[9px] md:text-[12px] uppercase tracking-widest">AKU Reasoning & Stats</p>
-                      </div>
-                    </button>
-                  </div>
-                </div>
 
                {/* Premium Unlock (Inline) */}
                {!isPremiumActive && currentUser && (
-                <div className="p-8 md:p-16 bg-brand-gold text-brand-green rounded-[32px] md:rounded-[64px] shadow-2xl relative overflow-hidden group mb-12">
+                <div id="premium-unlock-id" className="p-8 md:p-16 bg-brand-gold text-brand-green rounded-[32px] md:rounded-[64px] shadow-2xl relative overflow-hidden group mb-12">
                   <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl group-hover:scale-125 transition-transform duration-1000" />
                   <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
                      <div className="space-y-4 md:space-y-6 max-w-xl text-center md:text-left">
@@ -1844,6 +1839,8 @@ export default function App() {
                   </div>
                 </div>
                )}
+
+
 
             </motion.div>
           )}
@@ -2837,78 +2834,578 @@ export default function App() {
 
           {state === 'portfolio' && (
             <motion.div key="portfolio" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-16">
-              <div className="flex items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-10">
+              <div className="flex items-center justify-between border-b border-slate-900 pb-10">
                 <div className="space-y-3">
-                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-green dark:text-brand-gold tracking-tight">Founder Profile</h2>
-                  <p className="text-slate-500 font-bold tracking-widest uppercase text-sm">Academic Excellence & Leadership</p>
+                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-gold tracking-tight">Founder Profile</h2>
+                  <p className="text-slate-400 font-bold tracking-widest uppercase text-xs">Academic Excellence & Global Leadership</p>
                 </div>
-                <button onClick={() => setState('welcome')} className="p-5 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-3xl text-brand-green dark:text-brand-gold hover:scale-110 transition-transform">
-                  <ArrowLeft className="w-8 h-8" />
+                <button onClick={() => setState('welcome')} className="p-4 bg-slate-900 border border-slate-800 rounded-2xl text-brand-gold hover:scale-110 active:scale-95 transition-all shadow-xl">
+                  <ArrowLeft className="w-6 h-6" />
                 </button>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <div className="lg:col-span-1 space-y-8">
-                  <div className="aspect-square bg-brand-gold/10 rounded-[64px] border-4 border-brand-gold/20 overflow-hidden relative group">
+                  <div className="aspect-square bg-slate-950 rounded-[48px] border border-slate-800 p-2 overflow-hidden relative group shadow-2xl">
                     <img 
                       src={siteConfig.founderImageUrl && !siteConfig.founderImageUrl.includes('db61ce') ? siteConfig.founderImageUrl : founderImage} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      className="w-full h-full object-cover rounded-[40px] group-hover:scale-105 transition-transform duration-700" 
                       alt={PORTFOLIO_DATA.name} 
                     />
                   </div>
                   <div className="space-y-4 text-center lg:text-left px-4">
-                    <h3 className="text-3xl font-black text-brand-green dark:text-brand-gold uppercase tracking-tighter leading-none">{PORTFOLIO_DATA.name}</h3>
-                    <p className="text-brand-gold font-bold uppercase tracking-widest text-sm">{PORTFOLIO_DATA.title}</p>
+                    <h3 className="text-3xl font-black text-brand-gold uppercase tracking-tighter leading-none">{PORTFOLIO_DATA.name}</h3>
+                    <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">{PORTFOLIO_DATA.title}</p>
                     <div className="flex flex-wrap gap-2 pt-4 justify-center lg:justify-start">
                       {PORTFOLIO_DATA.skills.map(skill => (
-                        <span key={skill} className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full font-black text-[10px] uppercase tracking-widest">{skill}</span>
+                        <span key={skill} className="px-4 py-2 bg-slate-900/80 border border-slate-850/60 text-slate-300 rounded-full font-black text-[10px] uppercase tracking-widest">{skill}</span>
                       ))}
                     </div>
                   </div>
                 </div>
 
                 <div className="lg:col-span-2 space-y-12">
-                   <div className="bg-white dark:bg-slate-900 p-12 rounded-[56px] border-2 border-slate-100 dark:border-slate-800 shadow-xl relative overflow-hidden">
+                   <div className="bg-slate-950/60 p-10 md:p-12 rounded-[48px] border border-slate-900 shadow-2xl relative overflow-hidden backdrop-blur-3xl">
                      <Quote className="absolute top-8 right-8 w-16 h-16 text-brand-gold/10" />
                      <h4 className="text-[10px] font-black text-brand-gold uppercase tracking-[0.3em] mb-6">Profile Narrative</h4>
-                     <p className="text-xl text-slate-600 dark:text-slate-300 font-bold leading-relaxed italic">
+                     <p className="text-lg md:text-xl text-slate-300 font-bold leading-relaxed italic">
                        "{siteConfig.founderBio}"
                      </p>
                    </div>
 
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-8">
-                        <h4 className="flex items-center gap-3 text-brand-green dark:text-brand-gold font-black uppercase tracking-widest text-sm border-b-2 border-brand-gold/20 pb-4">
+                        <h4 className="flex items-center gap-3 text-brand-gold font-black uppercase tracking-widest text-xs border-b border-slate-900 pb-4">
                           <GraduationCap className="w-5 h-5" /> Academic Pedigree
                         </h4>
                         <div className="space-y-6">
                            {PORTFOLIO_DATA.education.map((edu, idx) => (
-                             <div key={idx} className="relative pl-8 border-l-4 border-brand-gold/20 hover:border-brand-gold transition-colors py-2 group">
-                               <div className="absolute top-2 -left-2 w-3 h-3 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
-                               <h5 className="font-black text-brand-green dark:text-brand-gold text-lg tracking-tight leading-none mb-1">{edu.degree}</h5>
-                               <p className="text-slate-500 font-bold text-sm mb-1">{edu.institution}</p>
-                               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{edu.details}</p>
+                             <div key={idx} className="relative pl-8 border-l-2 border-brand-gold/20 hover:border-brand-gold transition-colors py-2 group">
+                               <div className="absolute top-2 -left-1.5 w-3 h-3 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
+                               <h5 className="font-black text-brand-gold text-lg tracking-tight leading-none mb-1">{edu.degree}</h5>
+                               <p className="text-slate-400 font-bold text-sm mb-1">{edu.institution}</p>
+                               <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{edu.details}</p>
                              </div>
                            ))}
                         </div>
                       </div>
 
                       <div className="space-y-8">
-                        <h4 className="flex items-center gap-3 text-brand-green dark:text-brand-gold font-black uppercase tracking-widest text-sm border-b-2 border-brand-gold/20 pb-4">
+                        <h4 className="flex items-center gap-3 text-brand-gold font-black uppercase tracking-widest text-xs border-b border-slate-900 pb-4">
                           <Briefcase className="w-5 h-5" /> Professional Tenure
                         </h4>
                         <div className="space-y-6">
                            {PORTFOLIO_DATA.experience.map((exp, idx) => (
-                             <div key={idx} className="relative pl-8 border-l-4 border-brand-green/20 hover:border-brand-green transition-colors py-2 group">
-                               <div className="absolute top-2 -left-2 w-3 h-3 bg-brand-green rounded-full group-hover:scale-150 transition-transform" />
-                               <h5 className="font-black text-brand-green dark:text-brand-gold text-lg tracking-tight leading-none mb-1">{exp.role}</h5>
-                               <p className="text-slate-500 font-bold text-sm mb-1">{exp.company}</p>
-
+                             <div key={idx} className="relative pl-8 border-l-2 border-brand-gold/20 hover:border-brand-gold transition-colors py-2 group">
+                               <div className="absolute top-2 -left-1.5 w-3 h-3 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
+                               <h5 className="font-black text-brand-gold text-lg tracking-tight leading-none mb-1">{exp.role}</h5>
+                               <p className="text-slate-400 font-bold text-sm mb-1">{exp.company}</p>
                              </div>
                            ))}
                         </div>
                       </div>
                    </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {state === 'aku-past-papers' && (
+            <motion.div key="aku-past-papers-room" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-16">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-slate-900 pb-10 gap-6">
+                <div className="space-y-3">
+                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-gold tracking-tight">AKU Past Papers Room</h2>
+                  <p className="text-slate-400 font-bold tracking-widest uppercase text-xs">Official Archives & Full Examinations</p>
+                </div>
+                <button onClick={() => setState('welcome')} className="p-4 bg-slate-900 border border-slate-800 rounded-2xl text-brand-gold hover:scale-110 active:scale-95 transition-all shadow-xl shrink-0">
+                  <ArrowLeft className="w-6 h-6" />
+                </button>
+              </div>
+
+              {localQuizzes.some(q => q.subject === 'AKU Past Papers') ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {localQuizzes.filter(q => q.subject === 'AKU Past Papers').map((quiz) => (
+                    <motion.div 
+                      key={quiz.id} 
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      className="group relative p-8 md:p-10 bg-slate-950/40 rounded-[48px] border border-slate-900 hover:border-brand-gold/55 transition-all shadow-2xl overflow-hidden backdrop-blur-3xl"
+                    >
+                      <div className={`absolute top-0 left-0 w-full h-1 bg-brand-gold`} />
+                      <div className="mb-8 flex items-center justify-between">
+                        <div className="p-4 bg-slate-900 border border-slate-800 text-brand-gold rounded-[20px]">
+                          <Database className="w-6 h-6" />
+                        </div>
+                        <span className="px-3 py-1 bg-brand-gold/10 text-brand-gold border border-brand-gold/20 rounded-full text-[9px] font-black uppercase tracking-widest">Premium Archive</span>
+                      </div>
+                      <h3 className="heading-serif text-3xl font-black text-slate-100 mb-3 group-hover:text-brand-gold transition-colors">{quiz.title || quiz.name}</h3>
+                      <div className="flex gap-4 mb-8">
+                         <div className="flex items-center gap-1 text-[10px] font-black text-slate-500 uppercase tracking-widest"><BookOpen className="w-3 h-3 text-brand-gold/60" /> {quiz.subject}</div>
+                         <div className="flex items-center gap-1 text-[10px] font-black text-slate-500 uppercase tracking-widest"><Timer className="w-3 h-3 text-brand-gold/60" /> {quiz.timeLimit || 120}m</div>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <button 
+                          onClick={() => startQuiz(quiz, 'exam')}
+                          className="w-full flex items-center justify-between px-6 py-4 bg-brand-gold text-slate-950 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/10 pointer-events-auto cursor-pointer"
+                        >
+                          Exam Mode <ArrowRight className="w-4 h-4" />
+                        </button>
+                        <button 
+                          onClick={() => startQuiz(quiz, 'practice')}
+                          className="w-full flex items-center justify-between px-6 py-4 bg-slate-900 text-slate-300 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-850 hover:text-brand-gold transition-all border border-slate-800 pointer-events-auto cursor-pointer"
+                        >
+                          Practice Mode <BookOpen className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-20 bg-slate-950/40 rounded-[48px] border border-dashed border-slate-800">
+                  <Database className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+                  <p className="text-slate-500 font-bold text-sm">No past papers found.</p>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* CHEMISTRY SUBJECT ROOM */}
+          {state === 'subject-chemistry' && (
+            <motion.div key="subject-chemistry-room" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-16">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-10 gap-6">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/10 text-indigo-600 dark:text-indigo-400 rounded-full text-xs font-black uppercase tracking-widest">
+                    <Beaker className="w-4 h-4" /> SFK Clinical Chemistry
+                  </div>
+                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-green dark:text-brand-gold tracking-tight">Chemistry Learning Room</h2>
+                  <p className="text-slate-500 font-bold tracking-widest uppercase text-sm">Perfecting Stoichiometry, Kinetics & Organic Synthesis</p>
+                </div>
+                <button onClick={() => setState('welcome')} className="p-5 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-3xl text-brand-green dark:text-brand-gold hover:scale-110 transition-transform shrink-0">
+                  <ArrowLeft className="w-8 h-8" />
+                </button>
+              </div>
+
+              {/* Study Tools Banner */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Interactive Labs</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Organic Reactions Map</h3>
+                  <p className="text-sm font-medium opacity-90">A visual chart tracing pathways for alkanes, alkenes, alkyl halides, alcohols, and carboxylic acids.</p>
+                  <button onClick={() => alert("Organic synthesis map is unlocked and download will start shortly!")} className="px-5 py-2.5 bg-white text-indigo-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Download Map</button>
+                </div>
+                <div className="bg-gradient-to-br from-pink-500 to-rose-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Quick Reference</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Chemical Constants</h3>
+                  <p className="text-sm font-medium opacity-90">Gas constant (R), standard enthalpies, molecular masses, and Ka/Kb tables for the AKU exam.</p>
+                  <button onClick={() => alert("Quick reference guide is ready for view inside your library resource panel.")} className="px-5 py-2.5 bg-white text-rose-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Open Guide</button>
+                </div>
+                <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Syllabus Guidance</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">High-Yield Checkpoints</h3>
+                  <p className="text-sm font-medium opacity-90 font-sans">Focus heavily on stoichiometry calculations, quantum mechanics, states of matter, and transition complexes.</p>
+                  <span className="inline-block px-3 py-1 bg-white/20 rounded-lg text-[9px] font-black uppercase tracking-widest">AKU High Probability</span>
+                </div>
+              </div>
+
+              {/* Subject Chapters Grids */}
+              <div className="space-y-16">
+                {localQuizzes.filter(q => q.subject === 'Chemistry' || q.category === 'Chemistry').length > 0 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-black tracking-tight uppercase text-brand-green dark:text-brand-gold text-left">Custom Chemistry Exercises</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {localQuizzes.filter(q => q.subject === 'Chemistry' || q.category === 'Chemistry').map(quiz => (
+                        <div key={quiz.id} className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-8 rounded-[36px] hover:border-brand-green transition-all shadow-sm text-left">
+                          <h4 className="font-black text-lg text-slate-800 dark:text-white mb-2">{quiz.title || quiz.name}</h4>
+                          <span className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-500 font-black uppercase px-2 py-1 rounded-md">{quiz.questions.length} Questions</span>
+                          <button onClick={() => startQuiz(quiz)} className="mt-4 w-full py-3 bg-brand-green text-brand-gold rounded-xl font-black text-xs uppercase tracking-wider">Start Drill</button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Main Syllabus Grids */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+                  {/* Grade 11 Chemistry */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                      <div className="p-3 bg-indigo-500/10 text-indigo-500 rounded-xl font-black text-xl leading-none">11</div>
+                      <div>
+                        <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">Grade 11 Syllabus (FSc Part 1)</h3>
+                        <p className="text-slate-400 font-bold text-xs mt-1">Physical & General Chemistry Principles</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {CURRICULUM.chemistry.grades['11'].chapters.map(chapter => (
+                        <button
+                          key={chapter.id}
+                          onClick={() => startQuiz(chapter)}
+                          className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                              <chapter.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                              <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Grade 12 Chemistry */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                      <div className="p-3 bg-purple-500/10 text-purple-500 rounded-xl font-black text-xl leading-none">12</div>
+                      <div>
+                        <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">Grade 12 Syllabus (FSc Part 2)</h3>
+                        <p className="text-slate-400 font-bold text-xs mt-1">Inorganic, Organic & Analytical Chemistry</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {CURRICULUM.chemistry.grades['12'].chapters.map(chapter => (
+                        <button
+                          key={chapter.id}
+                          onClick={() => startQuiz(chapter)}
+                          className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                              <chapter.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                              <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* BIOLOGY SUBJECT ROOM */}
+          {state === 'subject-biology' && (
+            <motion.div key="subject-biology-room" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-16">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-10 gap-6">
+                <div className="space-y-3 p-1">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-black uppercase tracking-widest">
+                    <Microscope className="w-4 h-4" /> SFK Medical Biology
+                  </div>
+                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-green dark:text-brand-gold tracking-tight">Biology Learning Room</h2>
+                  <p className="text-slate-500 font-bold tracking-widest uppercase text-sm">Cracking Genetics, Cell Energetics & Reproduction Lifecycles</p>
+                </div>
+                <button onClick={() => setState('welcome')} className="p-5 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-3xl text-brand-green dark:text-brand-gold hover:scale-110 transition-transform shrink-0">
+                  <ArrowLeft className="w-8 h-8" />
+                </button>
+              </div>
+
+              {/* Study Tools Banner */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Genetics Board</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Mendelian Punnett Crosses</h3>
+                  <p className="text-sm font-medium opacity-90 font-sans">Master alleles, testcross methods, non-Mendelian epistasis, and chromosomes maps.</p>
+                  <button onClick={() => alert("Interactive Genetics Cross guide saved to downloads list.")} className="px-5 py-2.5 bg-white text-emerald-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Download Board</button>
+                </div>
+                <div className="bg-gradient-to-br from-cyan-500 to-sky-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Microanatomy</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Cell Membrane & Pathways</h3>
+                  <p className="text-sm font-medium opacity-90">Detailed organelle diagrams, transport mechanisms, and respiratory electron transport chains.</p>
+                  <button onClick={() => alert("Organelle pathway map unlocked for direct review in SFK academic storage.")} className="px-5 py-2.5 bg-white text-sky-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Explore Cell</button>
+                </div>
+                <div className="bg-gradient-to-br from-lime-500 to-green-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">MDCAT & AKU Focused</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Flora & Fauna Lifecycles</h3>
+                  <p className="text-sm font-medium opacity-90">Comparison guides of haploid and diploid processes in animalia, bryophytes, pteridophytes.</p>
+                  <span className="inline-block px-3 py-1 bg-white/20 rounded-lg text-[9px] font-black uppercase tracking-widest">Full Syllabus Syllabus</span>
+                </div>
+              </div>
+
+              {/* Subject Chapters Grids */}
+              <div className="space-y-16">
+                {localQuizzes.filter(q => q.subject === 'Biology' || q.category === 'Biology').length > 0 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-black tracking-tight uppercase text-brand-green dark:text-brand-gold text-left">Custom Biology Exercises</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {localQuizzes.filter(q => q.subject === 'Biology' || q.category === 'Biology').map(quiz => (
+                        <div key={quiz.id} className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-8 rounded-[36px] hover:border-brand-green transition-all shadow-sm text-left">
+                          <h4 className="font-black text-lg text-slate-800 dark:text-white mb-2">{quiz.title || quiz.name}</h4>
+                          <span className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-500 font-black uppercase px-2 py-1 rounded-md">{quiz.questions.length} Questions</span>
+                          <button onClick={() => startQuiz(quiz)} className="mt-4 w-full py-3 bg-brand-green text-brand-gold rounded-xl font-black text-xs uppercase tracking-wider">Start Drill</button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Main Syllabus Grids */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+                  {/* Grade 11 Biology */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                      <div className="p-3 bg-emerald-500/10 text-emerald-500 rounded-xl font-black text-xl leading-none">11</div>
+                      <div>
+                        <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">Grade 11 Syllabus (FSc Part 1)</h3>
+                        <p className="text-slate-400 font-bold text-xs mt-1">Foundational Cell Biology & Kingdoms</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {CURRICULUM.biology.grades['11'].chapters.map(chapter => (
+                        <button
+                          key={chapter.id}
+                          onClick={() => startQuiz(chapter)}
+                          className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                              <chapter.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                              <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Grade 12 Biology */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                      <div className="p-3 bg-teal-500/10 text-teal-500 rounded-xl font-black text-xl leading-none">12</div>
+                      <div>
+                        <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">Grade 12 Syllabus (FSc Part 2)</h3>
+                        <p className="text-slate-400 font-bold text-xs mt-1">Physiology, Reproduction, Genetics & Evolution</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {CURRICULUM.biology.grades['12'].chapters.map(chapter => (
+                        <button
+                          key={chapter.id}
+                          onClick={() => startQuiz(chapter)}
+                          className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                              <chapter.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                              <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* PHYSICS SUBJECT ROOM */}
+          {state === 'subject-physics' && (
+            <motion.div key="subject-physics-room" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-16">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-10 gap-6">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-sky-50 dark:bg-sky-900/10 text-sky-600 dark:text-sky-400 rounded-full text-xs font-black uppercase tracking-widest">
+                    <Zap className="w-4 h-4" /> SFK Quantitative Physics
+                  </div>
+                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-green dark:text-brand-gold tracking-tight">Physics Learning Room</h2>
+                  <p className="text-slate-500 font-bold tracking-widest uppercase text-sm">Commanding Electromagnetism, Circular Dynamics & Wave Optics</p>
+                </div>
+                <button onClick={() => setState('welcome')} className="p-5 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-3xl text-brand-green dark:text-brand-gold hover:scale-110 transition-transform shrink-0">
+                  <ArrowLeft className="w-8 h-8" />
+                </button>
+              </div>
+
+              {/* Study Tools Banner */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Quick Equations</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Electrostatics & Circuits Map</h3>
+                  <p className="text-sm font-medium opacity-90">Coulomb’s configurations, capacitors networks, Kirchhoff’s logic, and Lorentz fields simplified.</p>
+                  <button onClick={() => alert("Capacitance and network circuits formula map downloaded successfully.")} className="px-5 py-2.5 bg-white text-blue-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Download Map</button>
+                </div>
+                <div className="bg-gradient-to-br from-sky-500 to-indigo-700 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Quantum Physics</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Photoelectric & Spectra Tables</h3>
+                  <p className="text-sm font-medium opacity-90 font-sans">Photons threshold values, Rydberg equations, work function, and relativistic length contractions checklist.</p>
+                  <button onClick={() => alert("Modern Physics key threshold parameters opened for study.")} className="px-5 py-2.5 bg-white text-sky-700 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Review Tables</button>
+                </div>
+                <div className="bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Analytical Practice</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Thermodynamic Engines</h3>
+                  <p className="text-sm font-medium opacity-90">Carnot cycle transitions, isothermal, adiabatic, entropy formulas, and first law parameters.</p>
+                  <span className="inline-block px-3 py-1 bg-white/20 rounded-lg text-[9px] font-black uppercase tracking-widest">AKU High Probability</span>
+                </div>
+              </div>
+
+              {/* Subject Chapters Grids */}
+              <div className="space-y-16">
+                {localQuizzes.filter(q => q.subject === 'Physics' || q.category === 'Physics').length > 0 && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-black tracking-tight uppercase text-brand-green dark:text-brand-gold text-left">Custom Physics Exercises</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {localQuizzes.filter(q => q.subject === 'Physics' || q.category === 'Physics').map(quiz => (
+                        <div key={quiz.id} className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-8 rounded-[36px] hover:border-brand-green transition-all shadow-sm text-left">
+                          <h4 className="font-black text-lg text-slate-800 dark:text-white mb-2">{quiz.title || quiz.name}</h4>
+                          <span className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-500 font-black uppercase px-2 py-1 rounded-md">{quiz.questions.length} Questions</span>
+                          <button onClick={() => startQuiz(quiz)} className="mt-4 w-full py-3 bg-brand-green text-brand-gold rounded-xl font-black text-xs uppercase tracking-wider">Start Drill</button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Main Syllabus Grids */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+                  {/* Grade 11 Physics */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                      <div className="p-3 bg-blue-500/10 text-blue-500 rounded-xl font-black text-xl leading-none">11</div>
+                      <div>
+                        <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">Grade 11 Syllabus (FSc Part 1)</h3>
+                        <p className="text-slate-400 font-bold text-xs mt-1">Foundational Mechanics, Fluids & Oscillations</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {CURRICULUM.physics.grades['11'].chapters.map(chapter => (
+                        <button
+                          key={chapter.id}
+                          onClick={() => startQuiz(chapter)}
+                          className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                              <chapter.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                              <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Grade 12 Physics */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                      <div className="p-3 bg-violet-500/10 text-violet-500 rounded-xl font-black text-xl leading-none">12</div>
+                      <div>
+                        <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">Grade 12 Syllabus (FSc Part 2)</h3>
+                        <p className="text-slate-400 font-bold text-xs mt-1">Electromagnetism, Solid Electronics & Nuclear Systems</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {CURRICULUM.physics.grades['12'].chapters.map(chapter => (
+                        <button
+                          key={chapter.id}
+                          onClick={() => startQuiz(chapter)}
+                          className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                              <chapter.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                              <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* REASONING SUBJECT ROOM */}
+          {state === 'subject-reasoning' && (
+            <motion.div key="subject-reasoning-room" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-16">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-10 gap-6">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-400 rounded-full text-xs font-black uppercase tracking-widest">
+                    <BrainCircuit className="w-4 h-4" /> SFK Logical Strategy
+                  </div>
+                  <h2 className="heading-serif text-5xl md:text-6xl font-black text-brand-green dark:text-brand-gold tracking-tight">Logical Reasoning Room</h2>
+                  <p className="text-slate-500 font-bold tracking-widest uppercase text-sm">Empowering Analytical Reasoning, Quant Systems & Critical Evaluation</p>
+                </div>
+                <button onClick={() => setState('welcome')} className="p-5 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-3xl text-brand-green dark:text-brand-gold hover:scale-110 transition-transform shrink-0">
+                  <ArrowLeft className="w-8 h-8" />
+                </button>
+              </div>
+
+              {/* Study Tools Banner */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Cognitive Guide</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Logic Matrices & Triggers</h3>
+                  <p className="text-sm font-medium opacity-90">Decoding scenarios arrangements, conditional mappings, sequence hierarchies, and deductive puzzles.</p>
+                  <button onClick={() => alert("Cognitive Logical Matrices rules handbook added to downloads.")} className="px-5 py-2.5 bg-white text-orange-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Download Handbook</button>
+                </div>
+                <div className="bg-gradient-to-br from-red-500 to-rose-600 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">Quantitative</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Fast Math Shortcuts</h3>
+                  <p className="text-sm font-medium opacity-90 font-sans">Learn 5-second computation tips for percentages, ratios, data interpretation tables, and word segments.</p>
+                  <button onClick={() => alert("AKU Quantitative Fast-Math cheat sheet unlocked.")} className="px-5 py-2.5 bg-white text-rose-600 font-black text-[10px] uppercase tracking-wider rounded-xl hover:scale-105 transition-all">Cheat Sheet</button>
+                </div>
+                <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white p-8 rounded-[36px] shadow-xl space-y-4 text-left">
+                  <h4 className="font-black text-xs uppercase tracking-[0.2em] opacity-80">MMI Prep</h4>
+                  <h3 className="text-2xl font-black heading-serif leading-none">Course of Action Scenarios</h3>
+                  <p className="text-sm font-medium opacity-90">Decision theories, course-of-action evaluations, and medical-ethics scenarios for AKU.</p>
+                  <span className="inline-block px-3 py-1 bg-white/20 rounded-lg text-[9px] font-black uppercase tracking-widest">AKU Exclusive Track</span>
+                </div>
+              </div>
+
+              {/* Subject Chapters Grids */}
+              <div className="space-y-16">
+                {/* Main Syllabus Grids */}
+                <div className="max-w-4xl mx-auto space-y-8 text-left">
+                  <div className="flex items-center gap-4 border-b-2 border-slate-100 dark:border-slate-800 pb-4">
+                    <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl font-black text-xl leading-none">L</div>
+                    <div>
+                      <h3 className="text-2xl font-black text-brand-green dark:text-brand-gold leading-none">AKU Logic & IQ Vault Syllabus</h3>
+                      <p className="text-slate-400 font-bold text-xs mt-1">Foundational Problem Solving & Argumentation</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {CURRICULUM.reasoning.grades['1'].chapters.map(chapter => (
+                      <button
+                        key={chapter.id}
+                        onClick={() => startQuiz(chapter)}
+                        className="group relative p-6 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl hover:border-brand-green dark:hover:border-brand-gold hover:shadow-lg hover:-translate-y-0.5 transition-all text-left flex items-center justify-between gap-6 outline-none"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="bg-brand-green/5 dark:bg-brand-green/10 text-brand-green dark:text-brand-gold w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                            <chapter.icon className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <h4 className="heading-serif font-black text-lg text-brand-green dark:text-brand-gold leading-none">{chapter.name}</h4>
+                            <p className="text-slate-400 font-bold text-[11px] uppercase tracking-wide mt-1.5 leading-none">{chapter.subtitle}</p>
+                          </div>
+                        </div>
+                        <ChevronRight className="w-6 h-6 text-brand-gold group-hover:translate-x-1.5 transition-transform shrink-0" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -3943,10 +4440,43 @@ export default function App() {
         </div>
       )}
 
-      <footer className="pt-24 pb-12 text-center space-y-4">
-        <p className="text-slate-400 dark:text-slate-600 font-bold tracking-widest uppercase text-sm">
-          &copy; {new Date().getFullYear()} Shah Fahad Khan Academy. All rights reserved.
-        </p>
+      <footer className="relative mt-24 border-t border-slate-900 bg-slate-950/20 py-16 backdrop-blur-3xl overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-left items-center">
+          <div className="space-y-4">
+            <h3 className="heading-serif text-3xl font-black text-brand-gold tracking-tight">Dr. Shah Fahad Khan</h3>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-[9px] max-w-sm leading-relaxed">
+              Global-Elite Medical Educator trusted by students worldwide. Bridging science, academic authority, and clinical mastery.
+            </p>
+          </div>
+          
+          <div className="flex flex-col gap-3">
+            <h4 className="text-[10px] font-black text-brand-gold uppercase tracking-[0.2em] mb-2">Connect Securely</h4>
+            <a href="https://wa.me/923492124667" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-slate-300 hover:text-brand-gold transition-colors font-bold text-xs uppercase tracking-wider">
+               <span className="p-2 bg-slate-900 border border-slate-800 rounded-lg text-emerald-400"><MessageSquare className="w-4 h-4" /></span>
+               WhatsApp Helpline
+            </a>
+            <a href="mailto:sfkshahfahadkhan@gmail.com" className="flex items-center gap-3 text-slate-300 hover:text-brand-gold transition-colors font-bold text-xs uppercase tracking-wider">
+               <span className="p-2 bg-slate-900 border border-slate-800 rounded-lg text-rose-400"><Mail className="w-4 h-4" /></span>
+               sfkshahfahadkhan@gmail.com
+            </a>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <h4 className="text-[10px] font-black text-brand-gold uppercase tracking-[0.2em] mb-2 font-black">Elite Archives</h4>
+            <div className="flex gap-3">
+              <a href="https://instagram.com/sfkshahfahadkhan" target="_blank" rel="noreferrer" className="p-3 bg-slate-900 hover:bg-brand-gold hover:text-slate-950 border border-slate-800 rounded-xl transition-all">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="https://youtube.com/playlist?list=PLDgKaUqENeyZqnsdw2v9ZDYLpTXS-CGrv&si=-JvrkR8PP1jVsN7p" target="_blank" rel="noreferrer" className="p-3 bg-slate-900 hover:bg-brand-gold hover:text-slate-950 border border-slate-800 rounded-xl transition-all">
+                <Youtube className="w-5 h-5" />
+              </a>
+            </div>
+            <p className="text-slate-600 font-bold tracking-widest uppercase text-[10px] mt-4">
+              &copy; 2026 Dr. Shah Fahad Khan. Global Medical Authority.
+            </p>
+          </div>
+        </div>
       </footer>
 
       {/* Contextual AI / Chatbot Toggle */}
